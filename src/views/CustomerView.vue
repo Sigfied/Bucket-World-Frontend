@@ -6,7 +6,7 @@
         <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
         <el-row>
           <el-col :span="8">
-            <h2>Quick Access</h2>
+            <h3>Quick Access</h3>
           </el-col>
           <el-col :span="15">
             <div class="input-area">

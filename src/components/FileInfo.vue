@@ -159,6 +159,7 @@ const uploadData = [
 }
 
 .el-row.file-wrapper {
+  height: 170px;
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
