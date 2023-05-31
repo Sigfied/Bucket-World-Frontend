@@ -12,7 +12,7 @@
             <div class="input-area">
               <el-input
                   v-model="searchInput"
-                  placeholder="请输入"
+                  placeholder="搜索"
                   class="input-with-select">
                 <template #append>
                   <span class="iconfont icon-sousuo"></span>
@@ -23,8 +23,8 @@
           </el-col>
 
         </el-row>
-        <el-row class="top-padding" gutter="50">
-          <el-table :data="tableData" style="width: 93%" :row-style="{height:'80px'}">
+        <el-row class="top-padding">
+          <el-table :data="tableData" style="width: 100%;height: 520px" :row-style="{height:'80px'}">
             <el-table-column prop="name" label="组名" width="180">
               <template #default="scope">
                 <span class="icon iconfont" :class="scope.row.icon"></span>
@@ -198,6 +198,34 @@ const tableData = [
           }
         ]
   },
+  {
+    icon: 'icon-XLS',
+    name: 'Work Sheet',
+    lastModifiedDate: '3 hours',
+    size: '0.98KB',
+    owner: 'Vintch',
+    members:
+        [
+          {
+            avatar: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            link: '',
+          }
+        ]
+  },
+  {
+    icon: 'icon-XLS',
+    name: 'Work Sheet',
+    lastModifiedDate: '3 hours',
+    size: '0.98KB',
+    owner: 'Vintch',
+    members:
+        [
+          {
+            avatar: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            link: '',
+          }
+        ]
+  },
 ]
 
 </script>
@@ -240,6 +268,11 @@ const tableData = [
   font-size: 14px;
 }
 
-
+:deep(.el-input__wrapper){
+  border-radius: 18px 0 0 18px;
+}
+:deep(.el-input-group__append){
+  border-radius: 0 18px 18px 0;
+}
 
 </style>

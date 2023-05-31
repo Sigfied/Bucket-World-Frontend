@@ -12,7 +12,7 @@
             <div class="input-area">
               <el-input
                   v-model="searchInput"
-                  placeholder="请输入"
+                  placeholder="搜索"
                   class="input-with-select">
                 <template #append>
                   <span class="iconfont icon-sousuo"></span>
@@ -22,8 +22,8 @@
           </el-col>
         </el-row>
 
-        <el-row class="top-padding" gutter="50">
-          <el-table :data="tableData" style="width: 93%" :row-style="{height:'80px'}">
+        <el-row class="top-padding">
+          <el-table :data="tableData" style="width: 100%;height: 520px" :row-style="{height:'80px'}">
             <el-table-column prop="name" sortable label="文件名称" width="300">
               <template #default="scope">
                 <span class="icon iconfont" :class="scope.row.icon"></span>
@@ -78,7 +78,7 @@
         </el-row>
       </div>
     </el-col>
-    <el-col :span="6">
+    <el-col :span="6" class="file-detail-contain">
       <FileInfo></FileInfo>
     </el-col>
   </el-row>
@@ -136,6 +136,36 @@ const tableData = [
     lastModifiedDate: 'May, 20 2023',
     members: '8 members'
   },
+  {
+    icon: 'icon-ZIP',
+    name: 'Wireless Project',
+    lastModifiedDate: 'May, 20 2023',
+    members: '8 members'
+  },
+  {
+    icon: 'icon-ZIP',
+    name: 'Wireless Project',
+    lastModifiedDate: 'May, 20 2023',
+    members: '8 members'
+  },{
+    icon: 'icon-ZIP',
+    name: 'Wireless Project',
+    lastModifiedDate: 'May, 20 2023',
+    members: '8 members'
+  },{
+    icon: 'icon-ZIP',
+    name: 'Wireless Project',
+    lastModifiedDate: 'May, 20 2023',
+    members: '8 members'
+  },
+  {
+    icon: 'icon-ZIP',
+    name: 'Wireless Project',
+    lastModifiedDate: 'May, 20 2023',
+    members: '8 members'
+  },
+
+
 ]
 
 </script>
@@ -170,10 +200,21 @@ const tableData = [
   font-size: 14px;
 }
 
+.file-detail-contain{
+  height: 100%;
+}
 
 
 .title {
   font-size: 16px;
   font-weight: 600;
+}
+
+:deep(.el-input__wrapper){
+  border-radius: 18px 0 0 18px;
+}
+
+:deep(.el-input-group__append){
+  border-radius: 0 18px 18px 0;
 }
 </style>

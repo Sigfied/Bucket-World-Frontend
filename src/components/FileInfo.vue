@@ -26,8 +26,8 @@
               :color="data.color"
           >
             <div class="activity-info">
-              <div>{{ data.name }} upload {{ data.files.length }} files</div>
-              <div class="upload-time">{{ data.time }}</div>
+              <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis">{{ data.name }} upload {{ data.files.length }} files</div>
+              <div class="upload-time" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis">{{ data.time }}</div>
             </div>
             <div class="upload-files">
               <div v-for="file in data.files" class="file-item">
@@ -179,6 +179,7 @@ const uploadData = [
   margin-top: 30px;
   font-size: 60px;
   height: 100px;
+  margin-bottom: 30px;
 }
 
 
