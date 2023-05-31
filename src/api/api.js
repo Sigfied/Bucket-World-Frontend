@@ -4,10 +4,17 @@ import {
 } from "element-plus";
 
 const api = axios.create({
-    baseURL: "http://192.168.9.235:8848", // 根据您的实际情况设置baseURL
+    // 根据您的实际情况设置baseURL
+    //baseURL: "http://192.168.9.235:8848",
+    // 根据您的实际情况设置baseURL
+    baseURL: "http://127.0.0.1:8848",
 });
 
-export function post(url, data) {
+
+//在axios中的then中返回一个数据，类型为promise<any>类型
+//在别的函数中接收不到该值
+//所以需要在别的函数中使用 async await接收
+export async function post(url, data) {
     return api.post(url, data)
         .then(response => {
             return response.data;
@@ -23,7 +30,7 @@ export function post(url, data) {
         });
 }
 
-export function get(url, data) {
+export async function get(url, data) {
     return api.get(url, data)
         .then(response => {
             return response.data;
