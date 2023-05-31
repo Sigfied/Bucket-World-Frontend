@@ -27,8 +27,18 @@ p, span, div, label, button {
   padding-right: 20px;
   padding-bottom: 16px;
   margin-left: 38px;
-//background-color: #F6F8FF; //border-radius: 40px; height: 98%;
+//background-color: #F6F8FF;
+//border-radius: 40px; height: 98%;
   border-left: 2px solid rgb(246, 246, 246);
+}
+.top-padding {
+  padding-top: 12px;
+}
+
+.left-padding {
+  padding-left: 10%;
+  border-left: 2px solid rgb(246, 246, 246);
+  height: 100%;
 }
 </style>
 

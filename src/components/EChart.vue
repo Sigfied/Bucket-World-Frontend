@@ -238,11 +238,7 @@ onMounted(() => {
   color: #92BAF5;
 }
 
-.left-padding {
-  padding-left: 10%;
-  border-left: 2px solid rgb(246, 246, 246);
-  height: 97%;
-}
+
 
 .card-info {
 //margin: 5px;

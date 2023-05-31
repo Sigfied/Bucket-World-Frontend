@@ -215,9 +215,6 @@ console.log(members)
   font-size: 14px;
 }
 
-.top-padding {
-  padding-top: 12px;
-}
 
 .card {
   display: flex;

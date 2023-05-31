@@ -1,5 +1,5 @@
 <template>
-  <div class="left-padding-file">
+  <div class="left-padding">
     <el-row>
       <div class="title">
         <h2>File Info</h2>
@@ -152,11 +152,7 @@ const uploadData = [
 @import url(../assets/font_4094392_70o7k4r745u/iconfont.css);
 @import url(../assets/themecss/theme.scss);
 
-.left-padding-file {
-  margin-left: -10%;
-  border-left: 2px solid rgb(246, 246, 246);
-  padding-left: 10px;
-}
+
 
 .title {
   padding-left: 10px;

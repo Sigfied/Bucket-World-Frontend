@@ -1,78 +1,80 @@
 <template>
   <el-row>
-    <el-col :span="17" class="show-main">
-      <el-row class="top-padding"><h2>文件分享</h2></el-row>
-      <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
-      <el-row class="top-padding ">
-        <el-col :span="19"><span class="title">分享小组</span></el-col>
-        <el-col :span="4">
-          <div class="input-area">
-            <el-input
-                v-model="searchInput"
-                placeholder="请输入"
-                class="input-with-select">
-              <template #append>
-                <span class="iconfont icon-sousuo"></span>
-              </template>
-            </el-input>
-          </div>
-        </el-col>
-      </el-row>
-
-      <el-row class="top-padding" gutter="50">
-        <el-table :data="tableData" style="width: 93%" :row-style="{height:'80px'}">
-          <el-table-column prop="name" sortable label="文件名称" width="300">
-            <template #default="scope">
-              <span class="icon iconfont" :class="scope.row.icon"></span>
-              <span class="table-title">{{ scope.row.name }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="member" label="成员">
-            <template #default="scope">
-              <span>{{ scope.row.members }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column label="上次修改时间">
-            <template #default="scope">
-              <span>{{ scope.row.lastModifiedDate }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="80">
-            <template #default>
-              <el-dropdown trigger="click">
-                  <span class="iconfont icon-sangedian-copy">
-                  </span>
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item>
-                      <span class="icon iconfont icon-a-fenxiang2"></span>
-                      <span>Share to...</span>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                      <span class="icon iconfont icon-xiazai"></span>
-                      <span>Download File</span>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                      <span class="icon iconfont icon-icon-"></span>
-                      <span>Move to</span>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                      <span class="icon iconfont icon-fuzhi-01"></span>
-                      <span>Copy</span>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                      <span class="icon iconfont icon-shanchu"></span>
-                      <span>Delete File</span>
-                    </el-dropdown-item>
-                  </el-dropdown-menu>
+    <el-col :span="17">
+      <div class="show-main">
+        <el-row class="top-padding"><h2>文件分享</h2></el-row>
+        <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
+        <el-row class="top-padding ">
+          <el-col :span="19"><span class="title">组内文件</span></el-col>
+          <el-col :span="5">
+            <div class="input-area">
+              <el-input
+                  v-model="searchInput"
+                  placeholder="请输入"
+                  class="input-with-select">
+                <template #append>
+                  <span class="iconfont icon-sousuo"></span>
                 </template>
-              </el-dropdown>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-row>
+              </el-input>
+            </div>
+          </el-col>
+        </el-row>
+
+<!--        <el-row class="top-padding" gutter="50">-->
+<!--          <el-table :data="tableData" style="width: 93%" :row-style="{height:'80px'}">-->
+<!--            <el-table-column prop="name" sortable label="文件名称" width="300">-->
+<!--              <template #default="scope">-->
+<!--                <span class="icon iconfont" :class="scope.row.icon"></span>-->
+<!--                <span class="table-title">{{ scope.row.name }}</span>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column prop="member" label="成员">-->
+<!--              <template #default="scope">-->
+<!--                <span>{{ scope.row.members }}</span>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+
+<!--            <el-table-column label="上次修改时间">-->
+<!--              <template #default="scope">-->
+<!--                <span>{{ scope.row.lastModifiedDate }}</span>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+
+<!--            <el-table-column width="80">-->
+<!--              <template #default>-->
+<!--                <el-dropdown trigger="click">-->
+<!--                  <span class="iconfont icon-sangedian-copy">-->
+<!--                  </span>-->
+<!--                  <template #dropdown>-->
+<!--                    <el-dropdown-menu>-->
+<!--                      <el-dropdown-item>-->
+<!--                        <span class="icon iconfont icon-a-fenxiang2"></span>-->
+<!--                        <span>Share to...</span>-->
+<!--                      </el-dropdown-item>-->
+<!--                      <el-dropdown-item>-->
+<!--                        <span class="icon iconfont icon-xiazai"></span>-->
+<!--                        <span>Download File</span>-->
+<!--                      </el-dropdown-item>-->
+<!--                      <el-dropdown-item>-->
+<!--                        <span class="icon iconfont icon-icon-"></span>-->
+<!--                        <span>Move to</span>-->
+<!--                      </el-dropdown-item>-->
+<!--                      <el-dropdown-item>-->
+<!--                        <span class="icon iconfont icon-fuzhi-01"></span>-->
+<!--                        <span>Copy</span>-->
+<!--                      </el-dropdown-item>-->
+<!--                      <el-dropdown-item>-->
+<!--                        <span class="icon iconfont icon-shanchu"></span>-->
+<!--                        <span>Delete File</span>-->
+<!--                      </el-dropdown-item>-->
+<!--                    </el-dropdown-menu>-->
+<!--                  </template>-->
+<!--                </el-dropdown>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
+<!--        </el-row>-->
+      </div>
     </el-col>
     <el-col :span="6">
       <FileInfo></FileInfo>
@@ -80,7 +82,7 @@
   </el-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {ref} from 'vue'
 import FileInfo from "../components/FileInfo.vue";
 
@@ -166,9 +168,7 @@ const tableData = [
   font-size: 14px;
 }
 
-.top-padding {
-  padding-top: 12px;
-}
+
 
 .title {
   font-size: 16px;

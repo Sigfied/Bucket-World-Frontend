@@ -1,11 +1,9 @@
 <template>
   <el-row>
     <el-col :span="23">
-      <div class="left-padding">
-        <el-row class="top-padding"><h2>分享组群</h2></el-row>
-        <el-row>
-          <span class="hello">👋你好，dwy，欢迎你的使用</span>
-        </el-row>
+      <div class="show-main">
+        <el-row class="top-padding"><h2>分享群组</h2></el-row>
+        <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
         <el-row>
           <el-col :span="8">
             <h2>Quick Access</h2>
@@ -80,7 +78,6 @@
         </el-row>
       </div>
     </el-col>
-    <!--   右侧   -->
   </el-row>
 </template>
 
@@ -232,9 +229,9 @@ const tableData = [
   justify-content: flex-end;
 }
 
-.left-padding {
-  padding-left: 80px;
-}
+//.left-padding {
+//  padding-left: 80px;
+//}
 
 .hello {
   margin-top: -18px;
@@ -243,8 +240,6 @@ const tableData = [
   font-size: 14px;
 }
 
-.top-padding {
-  padding-top: 18px;
-}
+
 
 </style>
