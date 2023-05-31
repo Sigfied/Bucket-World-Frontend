@@ -1,0 +1,144 @@
+@font-face {
+    font-family: "iconfont"; /* Project id 4094392 */
+    /* Color fonts */
+    src: url('iconfont.woff2?t=1685433923760') format('woff2'),
+    url('iconfont.woff?t=1685433923760') format('woff'),
+    url('iconfont.ttf?t=1685433923760') format('truetype');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon-:before {
+    content: "\e62c";
+}
+
+.icon-xiazai:before {
+    content: "\e621";
+}
+
+.icon-shanchu:before {
+    content: "\e612";
+}
+
+.icon-fuzhi-01:before {
+    content: "\e60b";
+}
+
+.icon-a-fenxiang2:before {
+    content: "\e620";
+}
+
+.icon-sousuo:before {
+    content: "\e610";
+}
+
+.icon-wenjianjia:before {
+    content: "\e7a7";
+}
+
+.icon-JPG:before {
+    content: "\e7a8";
+}
+
+.icon-DOCX:before {
+    content: "\e7a9";
+}
+
+.icon-JAVA:before {
+    content: "\e7aa";
+}
+
+.icon-MP4:before {
+    content: "\e7ab";
+}
+
+.icon-MP3:before {
+    content: "\e7ac";
+}
+
+.icon-PPT:before {
+    content: "\e7ad";
+}
+
+.icon-PDF:before {
+    content: "\e7ae";
+}
+
+.icon-XLS:before {
+    content: "\e7af";
+}
+
+.icon-ZIP:before {
+    content: "\e7b0";
+}
+
+.icon-div-1:before {
+    content: "\e7b1";
+}
+
+.icon-yuanwenjian-1:before {
+    content: "\e7b2";
+}
+
+.icon-wenjianjia-1:before {
+    content: "\e7b3";
+}
+
+.icon-xiazai-1:before {
+    content: "\e7b4";
+}
+
+.icon-excel-1:before {
+    content: "\e7b5";
+}
+
+.icon-jpg-1:before {
+    content: "\e7b6";
+}
+
+.icon-txt-1:before {
+    content: "\e7b7";
+}
+
+.icon-word-1:before {
+    content: "\e7b8";
+}
+
+.icon-shangchuan-1:before {
+    content: "\e7b9";
+}
+
+.icon-mp3-1:before {
+    content: "\e7ba";
+}
+
+.icon-mp4-1:before {
+    content: "\e7bb";
+}
+
+.icon-zip-1:before {
+    content: "\e7bc";
+}
+
+.icon-png-1:before {
+    content: "\e7bd";
+}
+
+.icon-pdf-1:before {
+    content: "\e7be";
+}
+
+.icon-ppt-1:before {
+    content: "\e7bf";
+}
+
+.icon-sangedian-copy:before {
+    content: "\e600";
+}
+
