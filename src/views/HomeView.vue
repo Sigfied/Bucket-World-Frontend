@@ -1,192 +1,195 @@
 <template>
-  <el-row>
-    <el-col :span="17">
-      <div class="show-main">
-        <el-row class="top-padding"><h2>个人中心</h2></el-row>
-        <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
-        <el-row class="top-padding">
-          <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-            <el-tab-pane label="常用" name="first">
-              <el-row :gutter="52">
-                <el-col :span="8">
-                  <div class="card card-1">
-                    <img src="../images/图片.png" alt="">
-                  </div>
-                  <div class="text">
-                    <h3>所有图片</h3>
-                    <p>2023-4-20</p>
-                  </div>
-                </el-col>
-                <el-col :span="8">
-                  <div class="card card-2">
-                    <img src="../images/视频.png" alt="">
-                  </div>
-                  <div class="text">
-                    <h3>所有视频</h3>
-                    <p>2023-4-20</p>
-                  </div>
-                </el-col>
-                <el-col :span="8">
-                  <div class="card card-3">
-                    <img src="../images/文档.png" alt="">
-                  </div>
-                  <div class="text">
-                    <h3>所有文档</h3>
-                    <p>2023-4-20</p>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-tab-pane>
-            <el-tab-pane label="最爱" name="second">123</el-tab-pane>
-          </el-tabs>
-        </el-row>
-        <el-row class="top-padding ">
-          <el-col :span="19"><span class="title">分享小组</span></el-col>
-          <el-col :span="5"><span class="smallText">查看所有</span></el-col>
-        </el-row>
-        <el-row :gutter="20" class="top-padding">
-          <el-col :span="7">
-            <el-card shadow="hover">
-              <el-row>
-                <el-col :span="12">
-                  <img src="../images/文件夹.png" alt="Image" class="folder">
-
-                </el-col>
-                <el-col :span="12">
-                  <div>
-                    <el-avatar :src="member.src" :key="member.id" v-for="member in members" :size="20"
-                               shape="circle"></el-avatar>
-                    <div class="smallTitle">桶世界小组</div>
-                    <div class="number">文件数：12</div>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </el-col>
-          <el-col :span="7">
-            <el-card shadow="hover">
-              <el-row>
-                <el-col :span="12">
-                  <img src="../images/文件夹.png" alt="Image" class="folder">
-
-                </el-col>
-                <el-col :span="12">
-                  <div>
-                    <el-avatar :src="member.src" :key="member.id" v-for="member in members" :size="20"
-                               shape="circle"></el-avatar>
-                    <div class="smallTitle">桶世界小组</div>
-                    <div class="number">12 Files</div>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </el-col>
-          <el-col :span="7">
-            <el-card shadow="hover">
-              <el-row>
-                <el-col :span="12">
-                  <img src="../images/文件夹.png" alt="Image" class="folder">
-
-                </el-col>
-                <el-col :span="12">
-                  <div>
-                    <el-avatar :src="member.src" :key="member.id" v-for="member in members" :size="20"
-                               shape="circle"></el-avatar>
-                    <div class="smallTitle">桶世界小组</div>
-                    <div class="number">12 Files</div>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </el-col>
-        </el-row>
-
-        <el-row class="top-padding title">最近文件</el-row>
-        <el-row class="top-padding">
-          <el-col class="info-card" :span="5">
-            <el-row :gutter="5">
-              <el-col :span="6">
-                <div class="small-card">
-                  <img src="../images/图片.png" alt="">
-                </div>
-              </el-col>
-              <el-col class="card-info" :span="18">
-                <el-row class="smallTitle">视频</el-row>
-                <el-row class="smallText">
-                  2023-05-20
+    <el-row>
+        <el-col :span="17">
+            <div class="show-main">
+                <el-row class="top-padding"><h2>个人中心</h2></el-row>
+                <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
+                <el-row class="top-padding">
+                    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+                        <el-tab-pane label="常用" name="first">
+                            <el-row :gutter="52">
+                                <el-col :span="8">
+                                    <div class="card card-1">
+                                        <img src="../images/图片.png" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <h3>所有图片</h3>
+                                        <p>2023-4-20</p>
+                                    </div>
+                                </el-col>
+                                <el-col :span="8">
+                                    <div class="card card-2">
+                                        <img src="../images/视频.png" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <h3>所有视频</h3>
+                                        <p>2023-4-20</p>
+                                    </div>
+                                </el-col>
+                                <el-col :span="8">
+                                    <div class="card card-3">
+                                        <img src="../images/文档.png" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <h3>所有文档</h3>
+                                        <p>2023-4-20</p>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </el-tab-pane>
+                        <el-tab-pane label="最爱" name="second">123</el-tab-pane>
+                    </el-tabs>
                 </el-row>
-              </el-col>
-            </el-row>
-          </el-col>
-          <el-col class="info-card" :span="5">
-            <el-row :gutter="5">
-              <el-col :span="6">
-                <div class="small-card">
-                  <img src="../images/图片.png" alt="">
-                </div>
-              </el-col>
-              <el-col class="card-info" :span="18">
-                <el-row class="smallTitle">视频</el-row>
-                <el-row class="smallText">
-                  2023-05-20
+                <el-row class="top-padding ">
+                    <el-col :span="19"><span class="title">分享小组</span></el-col>
+                    <el-col :span="5"><span class="smallText">查看所有</span></el-col>
                 </el-row>
-              </el-col>
-            </el-row>
-          </el-col>
-          <el-col class="info-card" :span="5">
-            <el-row :gutter="5">
-              <el-col :span="6">
-                <div class="small-card">
-                  <img src="../images/图片.png" alt="">
-                </div>
-              </el-col>
-              <el-col class="card-info" :span="18">
-                <el-row class="smallTitle">视频</el-row>
-                <el-row class="smallText">
-                  2023-05-20
+                <el-row :gutter="20" class="top-padding">
+                    <el-col :span="7">
+                        <el-card shadow="hover">
+                            <el-row>
+                                <el-col :span="12">
+                                    <img src="../images/文件夹.png" alt="Image" class="folder">
+
+                                </el-col>
+                                <el-col :span="12">
+                                    <div>
+                                        <el-avatar :src="member.src" :key="member.id" v-for="member in members"
+                                                   :size="20"
+                                                   shape="circle"></el-avatar>
+                                        <div class="smallTitle">桶世界小组</div>
+                                        <div class="number">文件数：12</div>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-card shadow="hover">
+                            <el-row>
+                                <el-col :span="12">
+                                    <img src="../images/文件夹.png" alt="Image" class="folder">
+
+                                </el-col>
+                                <el-col :span="12">
+                                    <div>
+                                        <el-avatar :src="member.src" :key="member.id" v-for="member in members"
+                                                   :size="20"
+                                                   shape="circle"></el-avatar>
+                                        <div class="smallTitle">桶世界小组</div>
+                                        <div class="number">12 Files</div>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="7">
+                        <el-card shadow="hover">
+                            <el-row>
+                                <el-col :span="12">
+                                    <img src="../images/文件夹.png" alt="Image" class="folder">
+
+                                </el-col>
+                                <el-col :span="12">
+                                    <div>
+                                        <el-avatar :src="member.src" :key="member.id" v-for="member in members"
+                                                   :size="20"
+                                                   shape="circle"></el-avatar>
+                                        <div class="smallTitle">桶世界小组</div>
+                                        <div class="number">12 Files</div>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </el-card>
+                    </el-col>
                 </el-row>
-              </el-col>
-            </el-row>
-          </el-col>
-          <el-col class="info-card" :span="5">
-            <el-row :gutter="5">
-              <el-col :span="6">
-                <div class="small-card">
-                  <img src="../images/图片.png" alt="">
-                </div>
-              </el-col>
-              <el-col class="card-info" :span="18">
-                <el-row class="smallTitle">视频</el-row>
-                <el-row class="smallText">
-                  2023-05-20
+
+                <el-row class="top-padding title">最近文件</el-row>
+                <el-row class="top-padding">
+                    <el-col class="info-card" :span="5">
+                        <el-row :gutter="5">
+                            <el-col :span="6">
+                                <div class="small-card">
+                                    <img src="../images/图片.png" alt="">
+                                </div>
+                            </el-col>
+                            <el-col class="card-info" :span="18">
+                                <el-row class="smallTitle">视频</el-row>
+                                <el-row class="smallText">
+                                    2023-05-20
+                                </el-row>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+                    <el-col class="info-card" :span="5">
+                        <el-row :gutter="5">
+                            <el-col :span="6">
+                                <div class="small-card">
+                                    <img src="../images/图片.png" alt="">
+                                </div>
+                            </el-col>
+                            <el-col class="card-info" :span="18">
+                                <el-row class="smallTitle">视频</el-row>
+                                <el-row class="smallText">
+                                    2023-05-20
+                                </el-row>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+                    <el-col class="info-card" :span="5">
+                        <el-row :gutter="5">
+                            <el-col :span="6">
+                                <div class="small-card">
+                                    <img src="../images/图片.png" alt="">
+                                </div>
+                            </el-col>
+                            <el-col class="card-info" :span="18">
+                                <el-row class="smallTitle">视频</el-row>
+                                <el-row class="smallText">
+                                    2023-05-20
+                                </el-row>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+                    <el-col class="info-card" :span="5">
+                        <el-row :gutter="5">
+                            <el-col :span="6">
+                                <div class="small-card">
+                                    <img src="../images/图片.png" alt="">
+                                </div>
+                            </el-col>
+                            <el-col class="card-info" :span="18">
+                                <el-row class="smallTitle">视频</el-row>
+                                <el-row class="smallText">
+                                    2023-05-20
+                                </el-row>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+                    <el-col class="info-card smallText" :span="2">……</el-col>
                 </el-row>
-              </el-col>
-            </el-row>
-          </el-col>
-          <el-col class="info-card smallText" :span="2">……</el-col>
-        </el-row>
-      </div>
-    </el-col>
-    <el-col :span="6">
-      <EChart></EChart>
-    </el-col>
-  </el-row>
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <EChart></EChart>
+        </el-col>
+    </el-row>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {ref} from 'vue'
 import EChart from "../components/EChart.vue";
 
 const activeName = ref('first')
 
 const handleClick = (tab, event) => {
-  console.log(tab, event)
+    console.log(tab, event)
 }
 
 let members = ref([
-  {id: 1, src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'},
-  {id: 2, src: '../images/开始.png'},
-  {id: 3, src: '../images/分享.png'}
+    {id: 1, src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'},
+    {id: 2, src: '../images/开始.png'},
+    {id: 3, src: '../images/分享.png'}
 ]);
 
 console.log(members)

@@ -7,7 +7,9 @@ const api = axios.create({
     // 根据您的实际情况设置baseURL
     //baseURL: "http://192.168.9.235:8848",
     // 根据您的实际情况设置baseURL
-    baseURL: "http://192.168.181.235:8848",
+    // baseURL: "http://192.168.181.235:8848",
+
+    baseURL: "http://localhost:8848"
 });
 
 
@@ -31,7 +33,11 @@ export async function post(url, data) {
 }
 
 export async function get(url, data) {
-    return api.get(url, data)
+    return api.get(url, {
+        params: {
+            data: data
+        }
+    })
         .then(response => {
             return response.data;
         })

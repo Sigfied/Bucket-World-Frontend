@@ -1,89 +1,90 @@
 <template>
-  <div class="menu-wrapper">
-    <div class="menu-title">
-      <span class="iconfont"><img class="logo" src="../images/logo.png" alt=""></span>
-      <span class="title-text">桶世界</span>
-    </div>
-    <div class="content">
-      <div class="person-info">
-        <img src="../images/头像.jpg" alt=""/>
-        <div class="person-name">
-          <div class="name">邓威远</div>
-          <span class="detail">学习中的程序员</span>
+    <div class="menu-wrapper">
+        <div class="menu-title">
+            <span class="iconfont"><img class="logo" src="../images/logo.png" alt=""></span>
+            <span class="title-text">桶世界</span>
         </div>
-      </div>
-      <div class="menu-content">
-        <div class="menu-list">
-          <div class="menu-list-item" v-for="item in menuData" :key="item.id" @click="handleItemClick(item.route)">
-            <div class="block"></div>
-            <span class="iconfont" :class="item.iconFont"></span>
-            <div class="item-name">{{ item.menuName }}</div>
-          </div>
+        <div class="content">
+            <div class="person-info">
+                <img src="../images/头像.jpg" alt=""/>
+                <div class="person-name">
+                    <div class="name">邓威远</div>
+                    <span class="detail">学习中的程序员</span>
+                </div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-list">
+                    <div class="menu-list-item" v-for="item in menuData" :key="item.id"
+                         @click="handleItemClick(item.route)">
+                        <div class="block"></div>
+                        <span class="iconfont" :class="item.iconFont"></span>
+                        <div class="item-name">{{ item.menuName }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
-<script>
+<script lang="ts">
 import router from "../router/index.js";
 
 export default {
-  data() {
-    return {
-      menuData: [
-        {
-          id: 1,
-          menuName: "个人中心",
-          route: "home",
-          iconFont: "icon-caidan",
-        },
-        {
-          id: 5,
-          menuName: "我的分享",
-          route: "share",
-          iconFont: "icon-denglu-yonghuzu",
-        },
-        {
-          id: 7,
-          menuName: "存储空间",
-          route: "customer",
-          iconFont: "icon-bingtu",
-        },
-        {
-          id: 9,
-          menuName: "设置",
-          iconFont: "icon-shezhi",
-        },
-        {
-          id: 10,
-          menuName: "退出",
-          iconFont: "icon-jinru",
-        },
-      ],
-    };
-  },
-  mounted() {
-    document.body.setAttribute("theme-color", "light");
-  },
-  methods: {
-    changeDark() {
-      if (!this.theme) {
-        document.body.setAttribute("theme-color", "dark");
-        this.theme = !this.theme;
-      } else {
-        document.body.setAttribute("theme-color", "light");
-        this.theme = !this.theme;
-      }
+    data() {
+        return {
+            menuData: [
+                {
+                    id: 1,
+                    menuName: "个人中心",
+                    route: "home",
+                    iconFont: "icon-caidan",
+                },
+                {
+                    id: 5,
+                    menuName: "我的分享",
+                    route: "share",
+                    iconFont: "icon-denglu-yonghuzu",
+                },
+                {
+                    id: 7,
+                    menuName: "存储空间",
+                    route: "customer",
+                    iconFont: "icon-bingtu",
+                },
+                {
+                    id: 9,
+                    menuName: "设置",
+                    iconFont: "icon-shezhi",
+                },
+                {
+                    id: 10,
+                    menuName: "退出",
+                    iconFont: "icon-jinru",
+                },
+            ],
+        };
     },
-    handleItemClick(route) {
-      console.log(route);
-      router.push({
-        name: route,
-      });
-      // 在控制台中打印被点击的 item-name
-    }
-  },
+    mounted() {
+        document.body.setAttribute("theme-color", "light");
+    },
+    methods: {
+        changeDark() {
+            if (!this.theme) {
+                document.body.setAttribute("theme-color", "dark");
+                this.theme = !this.theme;
+            } else {
+                document.body.setAttribute("theme-color", "light");
+                this.theme = !this.theme;
+            }
+        },
+        handleItemClick(route) {
+            console.log(route);
+            router.push({
+                name: route,
+            });
+            // 在控制台中打印被点击的 item-name
+        }
+    },
 };
 </script>
 

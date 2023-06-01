@@ -36,6 +36,10 @@ export type AllResult = {
     videos: Array<Objects>;
     videosNum: number;
     videosSize: string;
+    imagesSizeNum: number;
+    othSizeNum: number;
+    docSizeNum: number;
+    videosSizeNum: number
 };
 
 
@@ -48,7 +52,6 @@ export const All = async (): AllResult => {
         return res
     });
 }
-
 
 // @ts-ignore
 export const List = async (): Buckets => {
