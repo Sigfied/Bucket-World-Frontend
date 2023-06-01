@@ -1,10 +1,10 @@
 // @ts-ignore
-import {get} from "./api.js";
+import {get} from "./api.ts";
 import {Objects} from "./objects.ts";
 
 const bucket = "/bucket"
 
-export interface Bucket {
+export type Bucket = {
     name: string
     creationDate: string
     size: string | number

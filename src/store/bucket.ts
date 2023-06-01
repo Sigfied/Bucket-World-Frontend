@@ -1,11 +1,10 @@
 import {defineStore} from "pinia";
 import {AllResult} from "../api/bucket.ts";
-import {ref} from "vue";
 
 
 export const BucketStore
     = defineStore("buckets", () => {
-    let allResult: AllResult = ref<AllResult>({
+    let allResult = <AllResult>({
         all: 0,
         buckets: [],
         docNum: 0,

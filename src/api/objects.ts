@@ -1,7 +1,7 @@
 // @ts-ignore
-import {get} from "./api.js";
+import {get} from "./api.ts";
 // @ts-ignore
-import {post} from "./api.js";
+import {post} from "./api.ts";
 
 const objects = "/object"
 
