@@ -8,7 +8,7 @@
             <div class="person-info">
                 <img src="../images/头像.jpg" alt=""/>
                 <div class="person-name">
-                    <div class="name">邓威远</div>
+                    <div class="name">程序猿</div>
                     <span class="detail">学习中的程序员</span>
                 </div>
             </div>
@@ -29,10 +29,17 @@
 <script lang="ts">
 import router from "../router/index.js";
 
+interface MenuData {
+    id: number
+    menuName: string
+    route: string
+    iconFont: string
+}
+
 export default {
     data() {
         return {
-            menuData: [
+            menuData: <MenuData[]>[
                 {
                     id: 1,
                     menuName: "个人中心",
@@ -68,15 +75,6 @@ export default {
         document.body.setAttribute("theme-color", "light");
     },
     methods: {
-        changeDark() {
-            if (!this.theme) {
-                document.body.setAttribute("theme-color", "dark");
-                this.theme = !this.theme;
-            } else {
-                document.body.setAttribute("theme-color", "light");
-                this.theme = !this.theme;
-            }
-        },
         handleItemClick(route) {
             console.log(route);
             router.push({

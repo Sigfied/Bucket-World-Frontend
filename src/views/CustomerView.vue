@@ -3,7 +3,7 @@
         <el-col :span="23">
             <div class="show-main">
                 <el-row class="top-padding"><h2>分享群组</h2></el-row>
-                <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
+                <el-row><span class="hello">👋你好，程序猿，欢迎你的使用</span></el-row>
                 <el-row>
                     <el-col :span="8">
                         <h3>Quick Access</h3>
@@ -96,7 +96,7 @@
 import {onMounted, ref} from 'vue'
 import {BucketStore} from "../store/bucket.ts";
 import {Objects} from "../api/objects.ts";
-import {FileTypeMap} from "../api/api.ts";
+import {IconTypeMap} from "../api/api.ts";
 
 const bucketStore = BucketStore()
 const searchInput = ref('')
@@ -134,7 +134,7 @@ onMounted(() => {
     bucketStore.allResult.videos.forEach(vid => {
         tableData.value.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -149,7 +149,7 @@ onMounted(() => {
     bucketStore.allResult.documents.forEach(vid => {
         tableData.value.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -164,7 +164,7 @@ onMounted(() => {
     bucketStore.allResult.images.forEach(vid => {
         tableData.value.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -179,7 +179,7 @@ onMounted(() => {
     bucketStore.allResult.others.forEach(vid => {
         tableData.value.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -203,7 +203,7 @@ const fuzzySearch = () => {
     bucketStore.allResult.videos.forEach(vid => {
         data.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -218,7 +218,7 @@ const fuzzySearch = () => {
     bucketStore.allResult.documents.forEach(vid => {
         data.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -233,7 +233,7 @@ const fuzzySearch = () => {
     bucketStore.allResult.images.forEach(vid => {
         data.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -248,7 +248,7 @@ const fuzzySearch = () => {
     bucketStore.allResult.others.forEach(vid => {
         data.push(
             <TableData>{
-                icon: FileTypeMap.get(getFileType(vid.name)),
+                icon: IconTypeMap.get(getFileType(vid.name)),
                 members: membersData.slice(vid.size % (name.length - 1)),
                 name: vid.name,
                 object: vid,
@@ -333,7 +333,7 @@ const getTimeDifference = (timestamp) => {
     } else if (difference < sevenDays) {
         // 小于7天，返回具体的天数和周几
         const days = Math.floor(difference / oneDay);
-        const dayOfWeek = date1.toLocaleDateString("en-US", {weekday: "long"});
+        const dayOfWeek = date1.toLocaleDateString("zh-CN", {weekday: "long"});
         return days + "天前，" + dayOfWeek;
     } else if (difference < thirtyDays) {
         // 小于30天，返回具体的天数

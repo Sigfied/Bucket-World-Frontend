@@ -52,13 +52,16 @@ type InsertObject = {
     error: string | null
 }
 
+
+interface GetDataRequest {
+    bucketName: string
+    prefix: string
+}
+
 // @ts-ignore
 export const One = async (bucketName: string, objectName: string): Objects => {
     let url = objects + "/one"
-    return await get(url, {
-        bucketName: bucketName,
-        objectName: objectName
-    })
+    return await get(url + "?bucketName=" + bucketName + "&objectName=" + objectName)
         // @ts-ignore
         .then(res => {
             return res
@@ -71,10 +74,7 @@ export const One = async (bucketName: string, objectName: string): Objects => {
 // @ts-ignore
 export const List = async (bucketName: string, prefix: string): ObjectList => {
     let url = objects + "/list"
-    return await get(url, {
-        bucketName: bucketName,
-        prefix: prefix
-    })
+    return await get(url + "?bucketName=" + bucketName + "&prefix=" + prefix)
         // @ts-ignore
         .then(res => {
             return res
@@ -87,10 +87,7 @@ export const List = async (bucketName: string, prefix: string): ObjectList => {
 // @ts-ignore
 export const Fuzzy = async (bucketName: string, prefix: string): ObjectList => {
     let url = objects + "/fuzzy"
-    return await get(url, {
-        bucketName: bucketName,
-        prefix: prefix
-    })
+    return await get(url + "?bucketName=" + bucketName + "&prefix=" + prefix)
         // @ts-ignore
         .then(res => {
             return res
@@ -107,5 +104,31 @@ export const InsertOne = async (bucketName: string, objectName: string, file: an
         // @ts-ignore
         .then(res => {
             return res
+        })
+}
+
+
+// @ts-ignore
+export const getFiles = async (data: GetDataRequest): ObjectList => {
+    let url = objects + "/list"
+    return await get(url + "?bucketName=" + data.bucketName + "&prefix=" + data.prefix)
+        .then((response) => {
+            // 处理成功响应数据
+            console.log(response)
+            return response
+        })
+        .catch((error) => {
+            // 处理错误
+            console.error("请求失败:", error);
+        });
+}
+
+export const getString = async (data: GetDataRequest) => {
+    let u = objects + "/one"
+    return await get(u + "?bucketName=" + data.bucketName + "&prefix=" + data.prefix)
+        .then((response) => {
+            // 处理成功响应数据
+            return response
+            // console.log("success" ,response.objects)
         })
 }

@@ -31,12 +31,8 @@ export async function post(url: string, data: any) {
         });
 }
 
-export async function get(url: string, data: any) {
-    return api.get(url, {
-        params: {
-            data: data
-        }
-    })
+export async function get(url: string) {
+    return api.get(url)
         .then(response => {
             return response.data;
         })
@@ -52,19 +48,45 @@ export async function get(url: string, data: any) {
 }
 
 
-export const FileTypeMap = new Map<string, string>
+export function getFile(url: string, data: any) {
+    let fileApi = axios.create({
+        // 根据您的实际情况设置baseURL
+        baseURL: "http://localhost:8848",
+
+        responseType: "blob",
+    });
+
+    return fileApi.get(url, data)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            // 在实际应用中，您可以根据需要处理错误，例如显示错误消息等
+            ElMessage({
+                showClose: true,
+                message: '数据异常',
+                type: 'error',
+            });
+            throw error;
+        });
+}
+
+
+export const IconTypeMap = new Map<string, string>
 {
-    FileTypeMap.set(".docx", "icon-DOCX")
-    FileTypeMap.set(".doc", "icon-DOCX")
-    FileTypeMap.set(".xls", "icon-XLS")
-    FileTypeMap.set(".xlsx", "icon-XLS")
-    FileTypeMap.set(".pdf", "icon-PDF")
-    FileTypeMap.set(".mp4", "icon-MP4")
-    FileTypeMap.set(".mp3", "icon-MP3")
-    FileTypeMap.set(".ppt", "icon-PPT")
-    FileTypeMap.set(".pptx", "icon-PPT")
-    FileTypeMap.set(".zip", "icon-zip-1")
-    FileTypeMap.set(".7z", "icon-zip-1")
-    FileTypeMap.set(".png", "icon-png-1")
-    FileTypeMap.set(".jpg", "icon-jpg-1")
+    IconTypeMap.set(".docx", "icon-DOCX")
+    IconTypeMap.set(".doc", "icon-DOCX")
+    IconTypeMap.set(".xls", "icon-XLS")
+    IconTypeMap.set(".xlsx", "icon-XLS")
+    IconTypeMap.set(".pdf", "icon-PDF")
+    IconTypeMap.set(".mp4", "icon-MP4")
+    IconTypeMap.set(".mp3", "icon-MP3")
+    IconTypeMap.set(".ppt", "icon-PPT")
+    IconTypeMap.set(".pptx", "icon-PPT")
+    IconTypeMap.set(".zip", "icon-zip-1")
+    IconTypeMap.set(".7z", "icon-zip-1")
+    IconTypeMap.set(".png", "icon-png-1")
+    IconTypeMap.set(".jpg", "icon-jpg-1")
+    IconTypeMap.set(".txt", "icon-txt-1");
+    IconTypeMap.set("文件", "icon-wenjianjia")
 }

@@ -3,7 +3,7 @@
         <el-col :span="17">
             <div class="show-main">
                 <el-row class="top-padding"><h2>文件分享</h2></el-row>
-                <el-row><span class="hello">👋你好，dwy，欢迎你的使用</span></el-row>
+                <el-row><span class="hello">👋你好，程序猿，欢迎你的使用</span></el-row>
                 <el-row>
                     <el-col :span="8">
                         <h3>Quick Access</h3>

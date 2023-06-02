@@ -73,3 +73,20 @@ export const Create = async (bucketName: string): Create => {
         return res
     })
 }
+
+
+//获取桶名列表且请求参数
+// @ts-ignore
+export const getBucketList = async (data1: any, data2: any): Buckets => {
+    // console.log(data.bucketName, data.prefix)
+    return await get("/bucket/list?bucketName=" + data1 + "&prefix=" + data2)
+        .then((response) => {
+            // 处理成功响应数据
+            console.log(response)
+            return response
+        })
+        .catch((error) => {
+            // 处理错误
+            console.error("请求失败:", error);
+        });
+}
