@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import router from "../router/index.js";
+import router from "../router/index.ts";
 
 interface MenuData {
     id: number

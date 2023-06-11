@@ -1,5 +1,5 @@
 <template>
-    <el-button @click="buckList">点击开始</el-button>
+  <!--    <el-button @click="buckList">点击开始</el-button>-->
     <el-row style="height: 100% ; ">
         <!--   这是左边-->
         <el-col :span="5" style=" padding: 5px">
@@ -104,11 +104,11 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {ArrowRight, ArrowLeft} from "@element-plus/icons-vue";
 import {IconTypeMap, getFile} from "../api/api.ts";
 import {getFiles, getString, Objects} from "../api/objects.ts";
-import {getBucketList} from "../api/bucket.ts";
+import {Bucket, getBucketList} from "../api/bucket.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
 
 
@@ -182,7 +182,7 @@ let showData = {
 //左边
 //
 //生成桶的数组
-const bucketList = ref({})
+const bucketList = ref<Bucket[]>([])
 const activeIndex = ref(-1); // 默认选中项的索引
 
 const buckList = async () => {
@@ -197,6 +197,10 @@ function handleOpen() {
 
 function handleClose() {
 }
+
+onMounted(() => {
+    buckList()
+})
 
 
 // 处理按钮点击事件

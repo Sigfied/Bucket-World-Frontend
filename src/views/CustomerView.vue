@@ -94,28 +94,14 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
-import {BucketStore} from "../store/bucket.ts";
+import {BucketStore, Member, TableData} from "../store/bucket.ts";
 import {Objects} from "../api/objects.ts";
 import {IconTypeMap} from "../api/api.ts";
+import {formatFileSize, getTimeDifference} from "../api/utils.ts";
 
 const bucketStore = BucketStore()
 const searchInput = ref('')
 
-type Member = {
-    avatar: string
-    link: string
-}
-
-type TableData = {
-    object: Objects | null
-    type: string
-    members: Array<Member>
-    size: string
-    name: string
-    icon: string
-    sizeNum: number
-    lastModifiedDate: string
-}
 
 let tableData = ref<TableData[]>([])
 const name = ["John", "Jack", "Ali", "Hong"]
@@ -140,7 +126,7 @@ onMounted(() => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
@@ -155,7 +141,7 @@ onMounted(() => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
@@ -170,7 +156,7 @@ onMounted(() => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
@@ -185,13 +171,13 @@ onMounted(() => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
         )
     })
-
+    bucketStore.res = tableData.value
 
 })
 
@@ -209,7 +195,7 @@ const fuzzySearch = () => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
@@ -224,7 +210,7 @@ const fuzzySearch = () => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
@@ -239,7 +225,7 @@ const fuzzySearch = () => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
@@ -254,7 +240,7 @@ const fuzzySearch = () => {
                 object: vid,
                 sizeNum: vid.size,
                 owner: name[vid.size % name.length],
-                size: getFileSize(vid.size),
+                size: formatFileSize(vid.size),
                 type: getFileType(vid.name),
                 lastModifiedDate: vid.lastModified,
             }
@@ -273,81 +259,17 @@ const fuzzySearch = () => {
  */
 const fuzzyQuery = (list: Array<TableData>, keyWord: string) => {
     let reg = new RegExp(keyWord);
-    let arr = [];
-    for (let i = 0; i < list.length; i++) {
-        if (reg.test(list[i].name)) {
-            arr.push(list[i]);
-        }
-    }
-    return arr;
+    return list.filter(e => {
+        return reg.test(e.name)
+    });
 }
 
-
-const getFileSize = (size: number) => {//把字节转换成正常文件大小
-    if (!size) return "";
-    let num = 1024.00; //byte
-    if (size < num)
-        return size + "B";
-    if (size < Math.pow(num, 2))
-        return (size / num).toFixed(2) + "KB"; //kb
-    if (size < Math.pow(num, 3))
-        return (size / Math.pow(num, 2)).toFixed(2) + "MB"; //M
-    if (size < Math.pow(num, 4))
-        return (size / Math.pow(num, 3)).toFixed(2) + "G"; //G
-    return (size / Math.pow(num, 4)).toFixed(2) + "T"; //T
-}
 
 const getFileType = (filename: string): string => {
 //获取最后一个.的位置
     let index = filename.lastIndexOf(".");
 //获取后缀
     return filename.substring(index);
-}
-
-
-/**计算时间*/
-const getTimeDifference = (timestamp) => {
-    // 解析时间戳
-    const date1 = new Date(timestamp);
-    const date2 = new Date();
-
-    // 计算时间差（以毫秒为单位）
-    const difference = date2.getTime() - date1.getTime();
-
-    // 定义时间差的上限（以毫秒为单位）
-    const oneHour = 60 * 60 * 1000; // 1小时
-    const oneDay = 24 * oneHour; // 1天
-    const sevenDays = 7 * oneDay; // 7天
-    const thirtyDays = 30 * oneDay; // 30天
-    const oneYear = 365 * oneDay; // 1年
-
-    // 判断时间差的范围并返回相应的结果
-    if (difference < oneHour) {
-        // 小于1小时，返回具体的分钟数
-        const minutes = Math.floor(difference / (60 * 1000));
-        return minutes + "分钟前";
-    } else if (difference < oneDay) {
-        // 小于1天，返回具体的小时数
-        const hours = Math.floor(difference / oneHour);
-        return hours + "小时前";
-    } else if (difference < sevenDays) {
-        // 小于7天，返回具体的天数和周几
-        const days = Math.floor(difference / oneDay);
-        const dayOfWeek = date1.toLocaleDateString("zh-CN", {weekday: "long"});
-        return days + "天前，" + dayOfWeek;
-    } else if (difference < thirtyDays) {
-        // 小于30天，返回具体的天数
-        const days = Math.floor(difference / oneDay);
-        return days + "天前";
-    } else if (difference < oneYear) {
-        // 小于1年，返回具体的月份数
-        const months = Math.floor(difference / (30 * oneDay));
-        return months + "个月前";
-    } else {
-        // 大于1年，返回具体的年数
-        const years = Math.floor(difference / oneYear);
-        return years + "年前";
-    }
 }
 
 const extractDataFromPath = (path) => {

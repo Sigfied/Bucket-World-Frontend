@@ -1,5 +1,22 @@
 import {defineStore} from "pinia";
 import {AllResult} from "../api/bucket.ts";
+import {Objects} from "../api/objects.ts";
+
+export type TableData = {
+    object: Objects | null
+    type: string
+    members: Array<Member>
+    size: string
+    name: string
+    icon: string
+    sizeNum: number
+    lastModifiedDate: string
+}
+
+export type Member = {
+    avatar: string
+    link: string
+}
 
 
 export const BucketStore
@@ -25,9 +42,13 @@ export const BucketStore
         videosSizeNum: 0
     })
 
+    let res: TableData[]
+
 
     return {
-        allResult
+        allResult,
+        // @ts-ignore
+        res
     }
 }, {
     persist: true,
