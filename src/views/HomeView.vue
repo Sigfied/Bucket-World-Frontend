@@ -41,7 +41,7 @@
                     </el-tabs>
                 </el-row>
                 <el-row class="top-padding ">
-                    <el-col :span="19"><span class="title">分享小组</span></el-col>
+                    <el-col :span="19"><span class="title">分享群组</span></el-col>
                     <el-col :span="5"><span class="smallText">查看所有</span></el-col>
                 </el-row>
                 <el-row :gutter="20" class="top-padding">
@@ -64,44 +64,44 @@
                             </el-row>
                         </el-card>
                     </el-col>
-                    <el-col :span="7">
-                        <el-card shadow="hover">
-                            <el-row>
-                                <el-col :span="12">
-                                    <img src="../images/文件夹.png" alt="Image" class="folder">
+                  <el-col :span="7">
+                    <el-card shadow="hover">
+                      <el-row>
+                        <el-col :span="12">
+                          <img src="../images/文件夹.png" alt="Image" class="folder">
 
-                                </el-col>
-                                <el-col :span="12">
-                                    <div>
-                                        <el-avatar :src="member.src" :key="member.id" v-for="member in members"
-                                                   :size="20"
-                                                   shape="circle"></el-avatar>
-                                        <div class="smallTitle">桶世界小组</div>
-                                        <div class="number">12 Files</div>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="7">
-                        <el-card shadow="hover">
-                            <el-row>
-                                <el-col :span="12">
-                                    <img src="../images/文件夹.png" alt="Image" class="folder">
+                        </el-col>
+                        <el-col :span="12">
+                          <div>
+                            <el-avatar :src="member.src" :key="member.id" v-for="member in members"
+                                       :size="20"
+                                       shape="circle"></el-avatar>
+                            <div class="smallTitle">编码学习小组</div>
+                            <div class="number">文件数：14</div>
+                          </div>
+                        </el-col>
+                      </el-row>
+                    </el-card>
+                  </el-col>
+                  <el-col :span="7">
+                    <el-card shadow="hover">
+                      <el-row>
+                        <el-col :span="12">
+                          <img src="../images/文件夹.png" alt="Image" class="folder">
 
-                                </el-col>
-                                <el-col :span="12">
-                                    <div>
-                                        <el-avatar :src="member.src" :key="member.id" v-for="member in members"
-                                                   :size="20"
-                                                   shape="circle"></el-avatar>
-                                        <div class="smallTitle">桶世界小组</div>
-                                        <div class="number">12 Files</div>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                        </el-card>
-                    </el-col>
+                        </el-col>
+                        <el-col :span="12">
+                          <div>
+                            <el-avatar :src="member.src" :key="member.id" v-for="member in members"
+                                       :size="20"
+                                       shape="circle"></el-avatar>
+                            <div class="smallTitle">项目交流群</div>
+                            <div class="number">文件数：32</div>
+                          </div>
+                        </el-col>
+                      </el-row>
+                    </el-card>
+                  </el-col>
                 </el-row>
 
                 <el-row class="top-padding title">最近文件</el-row>
@@ -110,11 +110,11 @@
                         <el-row :gutter="5">
                             <el-col :span="6">
                                 <div class="small-card">
-                                    <img src="../images/图片.png" alt="">
+                                    <img src="../images/视频.png" alt="">
                                 </div>
                             </el-col>
                             <el-col class="card-info" :span="18">
-                                <el-row class="smallTitle">视频</el-row>
+                                <el-row class="smallTitle">旅游vlog</el-row>
                                 <el-row class="smallText">
                                     2023-05-20
                                 </el-row>
@@ -131,7 +131,7 @@
                             <el-col class="card-info" :span="18">
                                 <el-row class="smallTitle">视频</el-row>
                                 <el-row class="smallText">
-                                    2023-05-20
+                                    2023-05-12
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -144,9 +144,9 @@
                                 </div>
                             </el-col>
                             <el-col class="card-info" :span="18">
-                                <el-row class="smallTitle">视频</el-row>
+                                <el-row class="smallTitle">毕业照</el-row>
                                 <el-row class="smallText">
-                                    2023-05-20
+                                    2023-05-05
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -159,9 +159,9 @@
                                 </div>
                             </el-col>
                             <el-col class="card-info" :span="18">
-                                <el-row class="smallTitle">视频</el-row>
+                                <el-row class="smallTitle">合家欢</el-row>
                                 <el-row class="smallText">
-                                    2023-05-20
+                                    2023-05-01
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -179,7 +179,8 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import EChart from "../components/EChart.vue";
-
+import TestVue from "../components/TestVue.vue";
+import TestVue2 from "../components/TestVue2.vue";
 const activeName = ref('first')
 
 const handleClick = (tab, event) => {

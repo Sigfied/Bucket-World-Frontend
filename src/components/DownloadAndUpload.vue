@@ -12,7 +12,7 @@
         <el-col :span="24">
             <div class="info-row">
                 <span class="file-name">{{ fileName }}</span>
-                <span class="download-speed">{{ speed }}KB/s</span>
+                <span class="download-speed">{{ speed }}M/s</span>
             </div>
             <el-row class="progress-row">
                 <el-col :span="24">
@@ -32,12 +32,12 @@
         </el-col>
         <el-col :span="24">
             <div class="info-row">
-                <span class="file-name">{{ fileName }}</span>
-                <span class="download-speed">{{ speed }}KB/s</span>
+                <span class="file-name">{{ fileName1 }}</span>
+                <span class="download-speed">{{ speed1 }}M/s</span>
             </div>
             <el-row class="progress-row">
                 <el-col :span="24">
-                    <el-progress :percentage="percentage" :color="customColorMethod" text-inside :stroke-width="14"/>
+                    <el-progress :percentage="percentage1" :color="customColorMethod" text-inside :stroke-width="14"/>
                 </el-col>
             </el-row>
 
@@ -48,9 +48,13 @@
 <script setup lang="ts">
 import {ref} from "vue";
 
-const fileName = ref("example-file.mp4");
+const fileName = ref("旅游vlog.mp4");
 const percentage = ref(50);
-const speed = ref(1024);
+const speed = ref(3.4);
+
+const fileName1 = ref("2203396—不关橙猫猫的事哦—【A06】基于多场景应用的对象存储平台【深信服】—项目演示视频.mp4");
+const percentage1 = ref(80);
+const speed1 = ref(7.3);
 
 const pauseDownload = () => {
     // TODO: 暂停下载的逻辑

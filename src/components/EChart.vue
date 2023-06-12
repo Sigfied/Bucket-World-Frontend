@@ -309,9 +309,8 @@ onMounted(async () => {
 
 .info-card {
     margin-bottom: 7px;
-    padding: 5px;
-    padding-top: 10px;
-    background-color: #F9F8FF;
+  padding: 10px 5px 5px;
+  background-color: #F9F8FF;
 }
 
 </style>

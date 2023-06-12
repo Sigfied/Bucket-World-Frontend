@@ -1,6 +1,8 @@
 <template>
+
+
   <!--    <el-button @click="buckList">点击开始</el-button>-->
-    <el-row style="height: 100% ; ">
+    <el-row style="height: 100%; padding-top: 20px">
         <!--   这是左边-->
         <el-col :span="5" style=" padding: 5px">
             <el-menu
@@ -21,9 +23,12 @@
 
 
             </el-menu>
+
+          <TestVue></TestVue>
         </el-col>
         <!--    这是右边-->
         <el-col :span="19" style="padding-left: 1% ; ">
+          <el-row style="float: right; padding-right: 40px">  <TestVue2></TestVue2></el-row>
             <el-row>
                 <el-button size="small" :icon="ArrowLeft" @click="back"/>
                 <el-breadcrumb style="margin-top: 5px ; margin-left: 10px" :separator-icon="ArrowRight">
@@ -64,23 +69,23 @@
                                     <el-dropdown-menu>
                                         <el-dropdown-item>
                                             <span class="icon iconfont icon-a-fenxiang2"></span>
-                                            <span>Share to...</span>
+                                            <span>分享</span>
                                         </el-dropdown-item>
                                         <el-dropdown-item>
                                             <span class="icon iconfont icon-xiazai"></span>
-                                            <span>Download File</span>
+                                            <span>下载</span>
                                         </el-dropdown-item>
                                         <el-dropdown-item>
                                             <span class="icon iconfont icon-icon-"></span>
-                                            <span>Move to</span>
+                                            <span>移动</span>
                                         </el-dropdown-item>
                                         <el-dropdown-item>
                                             <span class="icon iconfont icon-fuzhi-01"></span>
-                                            <span>Copy</span>
+                                            <span>复制</span>
                                         </el-dropdown-item>
                                         <el-dropdown-item>
                                             <span class="icon iconfont icon-shanchu"></span>
-                                            <span>Delete File</span>
+                                            <span>删除</span>
                                         </el-dropdown-item>
                                     </el-dropdown-menu>
                                 </template>
@@ -110,6 +115,8 @@ import {IconTypeMap, getFile} from "../api/api.ts";
 import {getFiles, getString, Objects} from "../api/objects.ts";
 import {Bucket, getBucketList} from "../api/bucket.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
+import TestVue from "./TestVue.vue";
+import TestVue2 from "./TestVue2.vue";
 
 
 //
