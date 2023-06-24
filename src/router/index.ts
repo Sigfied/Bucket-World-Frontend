@@ -9,9 +9,14 @@ const routes = [
     //   path: '/',
     //   redirect: '/share'　　//默认显示
     // },
-
     {
-        path: '/',
+        path: "/",
+        name: "test",
+        // @ts-ignore
+        component: () => import("../components/TestUpload.vue")
+    },
+    {
+        path: '/home',
         name: 'home',
         component: HomeView
     },
@@ -37,7 +42,7 @@ const routes = [
         name: "file",
         // @ts-ignore
         component: () => import("../components/FileList.vue")
-    }
+    },
 ]
 
 const router = createRouter({

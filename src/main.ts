@@ -6,8 +6,11 @@ import router from './router'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
 import {createPinia, PiniaPluginContext} from 'pinia'
+// @ts-ignore
+import  uploader  from 'vue-simple-uploader';
+
+import {Icon} from '@iconify/vue'
 
 
 const pinia = createPinia()
@@ -37,8 +40,8 @@ const piniaPlugin = (context: PiniaPluginContext) => {
 }
 pinia.use(piniaPlugin)
 
-
 createApp(App)
     .use(router)
+    .use(uploader)
     .use(pinia)
-    .use(ElementPlus).mount('#app')
+    .use(ElementPlus).component('Icon', Icon).mount('#app')

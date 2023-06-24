@@ -8,7 +8,7 @@ const api = axios.create({
     // 根据您的实际情况设置baseURL
     // baseURL: "http://192.168.181.235:8848",
 
-    baseURL: "http://192.168.221.235:8848"
+    baseURL: "http://10.83.131.17:8848"
 });
 
 

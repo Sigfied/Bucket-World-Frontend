@@ -1,16 +1,16 @@
 <template>
-  <div class="upload-container" v-show="showProgress">
+  <div v-show="showProgress" class="upload-container">
     <div class="upload-animation">
       <div class="upload-info">{{ currentFile.name }} ({{ formatFileSize(currentFile.size) }})</div>
-      <el-progress :percentage="currentProgress" text-inside stroke-width="20"></el-progress>
+      <el-progress :percentage="currentProgress" stroke-width="20" text-inside></el-progress>
     </div>
     <div class="overlay"></div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { ElProgress } from 'element-plus';
+<script lang="ts" setup>
+import {onMounted, ref} from 'vue';
+import {ElProgress} from 'element-plus';
 
 const showProgress = ref(false);
 const currentFile = ref({
@@ -69,7 +69,7 @@ function formatFileSize(bytes: number) {
   margin-bottom: 10px;
   color: black;
   font-size: 12px;
-  //font-weight: bold;
+//font-weight: bold;
 }
 
 .overlay {
