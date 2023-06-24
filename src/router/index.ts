@@ -21,6 +21,12 @@ const routes = [
         component: HomeView
     },
     {
+        path: '/perview',
+        name: 'perview',
+        // @ts-ignore
+        component:  () => import(/* webpackChunkName: "about" */ '../components/PerViewPage.vue')
+    },
+    {
         path: '/about',
         name: 'about',
         // @ts-ignore

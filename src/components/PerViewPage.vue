@@ -1,12 +1,12 @@
 <template>
   <el-button style="margin-left: 10%" @click="preview()">点我预览</el-button>
-  <el-row class="show-file" style="margin-left: 10%; width: 90%;height: 100%">
+  <el-row class="show-file" style="margin-left: 10%; margin-right: 3% ;width: 87%;height: 100%">
 
     <video style="width: 100%" v-if="ifShowFile.video" :src="fileUrl" controls></video>
     <iframe v-if="ifShowFile.pdf" :src="fileUrl" class="pdfview"></iframe>
     <img v-if="ifShowFile.img"  :src="fileUrl" alt="正在打开">
     <audio v-if="ifShowFile.music" width="100%" :src="fileUrl" controls></audio>
-    <p v-if="ifShowFile.txt"> {{  }}</p>
+    <p v-if="ifShowFile.txt"> {{ txt }}</p>
     <div v-if="ifShowFile.excel" id="excelData" >
       <table class="custom-table">
         <thead>
@@ -61,7 +61,7 @@
   let fileBlob ;
   let fileUrl = ref<string>();
   let jsonData: Ref<any[]> = ref([]);
-
+  let txt = ref<string>();
   function getFileFormat(filename: string): string {
     const parts = filename.split('.');
     if (parts.length > 1) {
@@ -184,6 +184,13 @@
               console.log(jsonData.value[0]);
             };
             reader.readAsArrayBuffer(response.data);
+          } else if(type == "txt"){
+            const reader = new FileReader();
+            reader.onload = function() {
+              const text = reader.result; // 获取读取的文本数据
+              txt.value = text;
+            };
+            reader.readAsText(response.data); // 将 Blob 数据转换为文本
           } else {
             console.log(response)
             fileUrl.value = URL.createObjectURL(chooseBlob(response,type));
