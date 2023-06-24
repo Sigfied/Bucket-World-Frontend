@@ -69,7 +69,7 @@
  *   2. 作为普通组件在单个页面中调用，使用props
  */
 import { ref, watch, computed, nextTick, onMounted } from 'vue'
-import { mergeSimpleUpload } from '../../api/index.js'
+import { mergeSimpleUpload } from '~/api/index.js'
 import { generateMD5 } from './utils/md5'
 import Bus from './utils/bus'
 
@@ -356,7 +356,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style   lang="scss">
 #global-uploader {
   &:not(.global-uploader-single) {
     position: fixed;
@@ -388,7 +388,7 @@ export default {
         text-align: right;
 
         .el-button {
-          --el-button-hover-link-text-color: #108ee9;
+          --el-button-hover-link-text-color: #{$blue};
 
           + .el-button {
             margin-left: 8px;
@@ -398,6 +398,8 @@ export default {
     }
 
     .file-list {
+      margin: 0;
+      padding: 0;
       position: relative;
       height: 240px;
       overflow-x: hidden;
@@ -489,4 +491,5 @@ export default {
     position: relative;
   }
 }
+
 </style>

@@ -9,6 +9,7 @@ import 'element-plus/dist/index.css'
 import {createPinia, PiniaPluginContext} from 'pinia'
 // @ts-ignore
 import  uploader  from 'vue-simple-uploader';
+import 'vue-simple-uploader/dist/style.css'
 
 import {Icon} from '@iconify/vue'
 
