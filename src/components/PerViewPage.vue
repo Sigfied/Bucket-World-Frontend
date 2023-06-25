@@ -188,7 +188,7 @@
             const reader = new FileReader();
             reader.onload = function() {
               const text = reader.result; // 获取读取的文本数据
-              txt.value = text;
+              txt.value = text as any;
             };
             reader.readAsText(response.data); // 将 Blob 数据转换为文本
           } else {
