@@ -1,8 +1,6 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
+
 // @ts-ignore
-import HomeView from '../views/HomeView.vue'
-
-
 const routes = [
     // 暂时配置路由默认跳转
     // {
@@ -11,6 +9,12 @@ const routes = [
     // },
     {
         path: "/",
+        name: "login",
+        // @ts-ignore
+        component: () => import("../views/LoginView.vue")
+    },
+    {
+        path: "/test",
         name: "test",
         // @ts-ignore
         component: () => import("../components/TestUpload.vue")
@@ -18,26 +22,28 @@ const routes = [
     {
         path: '/home',
         name: 'home',
-        component: HomeView
+        // @ts-ignore
+        component: () => import("../views/HomeView.vue")
     },
     {
         path: '/about',
         name: 'about',
         // @ts-ignore
-        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+        component: () => import( '../views/AboutView.vue')
     },
     {
         path: '/customer',
         name: 'customer',
         // @ts-ignore
-        component: () => import(/* webpackChunkName: "about" */ '../views/CustomerView.vue')
+        component: () => import( '../views/CustomerView.vue')
     },
     {
         path: '/share',
         name: 'share',
         // @ts-ignore
-        component: () => import(/* webpackChunkName: "about" */ '../views/ShareView.vue')
-    }, {
+        component: () => import( '../views/ShareView.vue')
+    },
+    {
         path: "/file",
         name: "file",
         // @ts-ignore

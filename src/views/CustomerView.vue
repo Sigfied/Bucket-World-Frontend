@@ -97,12 +97,20 @@ import {onMounted, ref} from 'vue'
 import {BucketStore, Member, TableData} from "../store/bucket.ts";
 import {IconTypeMap} from "../api/api.ts";
 import {formatFileSize, getTimeDifference} from "../api/utils.ts";
+import {get} from "../api/user.js";
 
 const bucketStore = BucketStore()
 const searchInput = ref('')
 
 
-let tableData = ref<TableData[]>([])
+let tableData = ref([]);
+
+const response = await get('/group/page',{
+  page:"1",
+  pageSize:"10",
+  name:"",
+} );
+console.log(response);
 const name = ["John", "Jack", "Ali", "Hong"]
 const membersData = <Member[]>[{
   avatar: "src/images/团队头像/头像1.jpg",
@@ -114,170 +122,6 @@ const membersData = <Member[]>[{
   avatar: "src/images/团队头像/头像3.jpg",
   link: ""
 }]
-onMounted(() => {
-
-  bucketStore.allResult.videos.forEach(vid => {
-    tableData.value.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-  bucketStore.allResult.documents.forEach(vid => {
-    tableData.value.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-  bucketStore.allResult.images.forEach(vid => {
-    tableData.value.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-  bucketStore.allResult.others.forEach(vid => {
-    tableData.value.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-  bucketStore.res = tableData.value
-
-})
-
-
-const fuzzySearch = () => {
-  let key = searchInput.value
-  let data: Array<TableData> = []
-
-  bucketStore.allResult.videos.forEach(vid => {
-    data.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-  bucketStore.allResult.documents.forEach(vid => {
-    data.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-  bucketStore.allResult.images.forEach(vid => {
-    data.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-  bucketStore.allResult.others.forEach(vid => {
-    data.push(
-        <TableData>{
-          icon: IconTypeMap.get(getFileType(vid.name)),
-          members: membersData.slice(vid.size % (name.length - 1)),
-          name: vid.name,
-          object: vid,
-          sizeNum: vid.size,
-          owner: name[vid.size % name.length],
-          size: formatFileSize(vid.size),
-          type: getFileType(vid.name),
-          lastModifiedDate: vid.lastModified,
-        }
-    )
-  })
-
-  data = fuzzyQuery(data, key)
-  console.log(data)
-  tableData.value = data
-}
-/**
- * 使用test方法实现模糊查询
- * @param  {Array}  list     原数组
- * @param  {String} keyWord  查询的关键词
- * @return {Array}           查询的结果
- */
-const fuzzyQuery = (list: Array<TableData>, keyWord: string) => {
-  let reg = new RegExp(keyWord);
-  return list.filter(e => {
-    return reg.test(e.name)
-  });
-}
-
-
-const getFileType = (filename: string): string => {
-//获取最后一个.的位置
-  let index = filename.lastIndexOf(".");
-//获取后缀
-  return filename.substring(index);
-}
-
-const extractDataFromPath = (path) => {
-  const lastIndex = path.lastIndexOf('/');
-  if (lastIndex !== -1) {
-    return path.substring(lastIndex + 1);
-  }
-  return path;
-}
 </script>
 
 <style lang="scss" scoped>

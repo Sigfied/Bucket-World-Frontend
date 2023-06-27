@@ -10,7 +10,8 @@ import {createPinia, PiniaPluginContext} from 'pinia'
 // @ts-ignore
 import  uploader  from 'vue-simple-uploader';
 import 'vue-simple-uploader/dist/style.css'
-
+// @ts-ignore
+import store from './store'
 import {Icon} from '@iconify/vue'
 
 
@@ -45,4 +46,5 @@ createApp(App)
     .use(router)
     .use(uploader)
     .use(pinia)
+    .use(store)
     .use(ElementPlus).component('Icon', Icon).mount('#app')

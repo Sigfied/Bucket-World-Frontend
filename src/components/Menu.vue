@@ -49,13 +49,13 @@ export default {
         {
           id: 5,
           menuName: "我的分享",
-          route: "share",
+          route: "customer",
           iconFont: "icon-denglu-yonghuzu",
         },
         {
           id: 7,
           menuName: "存储空间",
-          route: "customer",
+          route: "file",
           iconFont: "icon-bingtu",
         },
         {

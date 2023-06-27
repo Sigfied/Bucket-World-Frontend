@@ -3,7 +3,7 @@
     <el-col :span="17">
       <div class="show-main">
         <el-row class="top-padding"><h2>个人中心</h2></el-row>
-        <el-row><span class="hello">👋你好，程序猿，欢迎你的使用</span></el-row>
+        <el-row><span class="hello">👋你好，欢迎你的使用</span></el-row>
         <el-row class="top-padding">
           <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
             <el-tab-pane label="常用" name="first">
@@ -179,6 +179,10 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
 import EChart from "../components/EChart.vue";
+import {useStore} from "vuex";
+
+const store = useStore();
+const user = store.getters.getUserData;
 
 const activeName = ref('first')
 

@@ -1,6 +1,4 @@
 <template>
-
-
   <!--    <el-button @click="buckList">点击开始</el-button>-->
   <el-row style="height: 100%; padding-top: 20px">
     <!--   这是左边-->
@@ -18,19 +16,12 @@
             @click="checkBucket(index)"
         >
           <img alt="" class="icon" src="../images/logo.png"/>
-          <span>  {{ bucketList[index].name }} </span>
+          <span>  {{ item.name }} </span>
         </el-menu-item>
-
-
       </el-menu>
-
-      <TestVue></TestVue>
     </el-col>
     <!--    这是右边-->
     <el-col :span="19" style="padding-left: 1% ; ">
-      <el-row style="float: right; padding-right: 40px">
-        <TestVue2></TestVue2>
-      </el-row>
       <el-row>
         <el-button :icon="ArrowLeft" size="small" @click="back"/>
         <el-breadcrumb :separator-icon="ArrowRight" style="margin-top: 5px ; margin-left: 10px">
@@ -117,9 +108,7 @@ import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
 import {Bucket, getBucketList} from "../api/bucket.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
-import TestVue from "./TestVue.vue";
-import TestVue2 from "./TestVue2.vue";
-
+import {get} from "../api/user.js";
 
 //
 //右边
@@ -191,14 +180,13 @@ let showData = {
 //左边
 //
 //生成桶的数组
-const bucketList = ref<Bucket[]>([])
+const bucketList = ref({});
 const activeIndex = ref(-1); // 默认选中项的索引
 
 const buckList = async () => {
-
-  let list = await getBucketList(data.bucketName, data.prefix);
-  bucketList.value = list.buckets
-  console.log(list.buckets)
+  const response = await get('/bucket/list',{bucketId:1673579293235965953});
+  console.log(response.data);
+  bucketList.value = response.data;
 }
 
 function handleOpen() {
@@ -218,11 +206,10 @@ const checkBucket = async (index: number) => {
     activeIndex.value = -1;
   } else {
     activeIndex.value = index;
-    data.bucketName = bucketList.value[index].name
-    console.log(data)
-    let files = await getFiles(data)
-    console.log(files.objects)
-    fileShowList.value = getObjectProperties(files.objects)
+    console.log( bucketList.value[index].id)
+    const response = await get('/document/list' ,{id:bucketList.value[index].id} );
+    console.log(response);
+    fileShowList.value = response.data;
 
   }
 
