@@ -3,10 +3,10 @@
     <el-col :span="23">
       <div class="show-main">
         <el-row class="top-padding"><h2>分享群组</h2></el-row>
-        <el-row><span class="hello">👋你好，程序猿，欢迎你的使用</span></el-row>
+        <el-row><span class="hello"> </span></el-row>
         <el-row>
           <el-col :span="8">
-            <h3>Quick Access</h3>
+<!--            <h3>Quick Access</h3>-->
           </el-col>
           <el-col :span="15">
             <div class="input-area">
@@ -29,15 +29,13 @@
             <el-table-column label="文件名" prop="name" width="360">
               <template #default="scope">
                 <!--                <span :class="scope.row.icon" class="icon iconfont"></span>-->
-                <span class="table-title">{{ scope.row.name }}</span>
+                <span class="table-title" @click="getRowNumber(scope.$index)">{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column  label="上次修改时间">
+            <el-table-column label="上次修改时间">
               <template #default="scope">
-                                <span class="table-title">{{
-                                    scope.row.updateTime
-                                  }}</span><br/>
-                <span>By {{ scope.row.accountId}}</span>
+                <span class="table-title">{{scope.row.updateTime }}</span><br/>
+                <span>By {{ scope.row.accountId }}</span>
               </template>
             </el-table-column>
             <el-table-column label="小组人数" prop="count">
@@ -88,6 +86,7 @@
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue'
 import {get} from "../api/user.js";
+import router from "../router";
 
 let tableData = ref();
 const getList = async () => {
@@ -96,6 +95,13 @@ const getList = async () => {
   tableData.value = response.data.records;
   console.log(tableData);
 }
+const getRowNumber = (index) => {
+  console.log("当前行号：", index);
+  router.push({
+    path:`/share/${index}`
+  })
+
+};
 onMounted(() => {
   getList()
 })
@@ -143,12 +149,7 @@ onMounted(() => {
 //  padding-left: 80px;
 //}
 
-.hello {
-  margin-top: -18px;
-  color: gray;
-  font-weight: 600;
-  font-size: 14px;
-}
+
 
 :deep(.el-input__wrapper) {
   border-radius: 18px 0 0 18px;

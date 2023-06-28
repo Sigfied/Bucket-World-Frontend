@@ -42,7 +42,7 @@
         </el-row>
         <el-row class="top-padding ">
           <el-col :span="19"><span class="title">分享群组</span></el-col>
-          <el-col :span="5"><span class="smallText">查看所有</span></el-col>
+          <el-col :span="5"><span class="smallText"  @click="toCustomer">查看所有</span></el-col>
         </el-row>
         <el-row :gutter="20" class="top-padding">
           <el-col :span="7">
@@ -180,6 +180,7 @@
 import {ref} from 'vue'
 import EChart from "../components/EChart.vue";
 import {useStore} from "vuex";
+import router from "../router";
 
 const store = useStore();
 const user = store.getters.getUserData;
@@ -197,6 +198,10 @@ let members = ref([
 ]);
 
 console.log(members)
+
+const toCustomer= () => {
+  router.push({ path: `/customer/` });
+};
 </script>
 
 <style lang="scss" scoped>

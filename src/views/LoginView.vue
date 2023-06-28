@@ -43,7 +43,7 @@
 import { ElMessage } from "element-plus";
 import { ref } from "vue";
 import { useStore } from "vuex";
-import router from "~/router/index.js";
+import router from "../router";
 import {post} from "../api/user.js";
 
 const store = useStore();

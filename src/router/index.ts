@@ -45,7 +45,7 @@ const routes = [
         component: () => import( '../views/CustomerView.vue')
     },
     {
-        path: '/share',
+        path: '/share/:id',
         name: 'share',
         // @ts-ignore
         component: () => import( '../views/ShareView.vue')
@@ -54,7 +54,7 @@ const routes = [
         path: "/file",
         name: "file",
         // @ts-ignore
-        component: () => import("../components/FileList.vue")
+        component: () => import("../views/FileList.vue")
     },
 ]
 
