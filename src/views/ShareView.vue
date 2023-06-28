@@ -26,21 +26,21 @@
 
         <el-row class="top-padding">
           <el-table :data="tableData" :row-style="{height:'80px'}" style="width: 100%;height: 520px">
-            <el-table-column label="文件名称" prop="name" sortable width="300">
+            <el-table-column label="文件名称" prop="document.name" sortable width="300">
               <template #default="scope">
                 <span :class="scope.row.icon" class="icon iconfont"></span>
-                <span class="table-title">{{ scope.row.name }}</span>
+                <span class="table-title">{{ scope.row.document.name}}</span>
               </template>
             </el-table-column>
-            <el-table-column label="成员" prop="member">
+            <el-table-column label="成员" prop="account.name">
               <template #default="scope">
-                <span>{{ scope.row.members }}</span>
+                <span>{{ scope.row.account.name }}</span>
               </template>
             </el-table-column>
 
             <el-table-column label="上次修改时间">
               <template #default="scope">
-                <span>{{ scope.row.lastModifiedDate }}</span>
+                <span>{{ scope.row.updateTime }}</span>
               </template>
             </el-table-column>
 
@@ -83,95 +83,22 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import FileInfo from "../components/FileInfo.vue";
+import {get} from "../api/user.js";
+import router from "../router";
 
-const searchInput = ref('')
-// const handleClick = (tab, event) => {
-//   console.log(tab, event)
-// }
+const searchInput = ref('');
 
-// let members = ref([
-//   {id: 1, src: '../images/分享.png'},
-//   {id: 2, src: '../images/分享.png'},
-//   {id: 3, src: '../images/分享.png'}
-// ]);
-
-interface TableData {
-  icon: string
-  name: string
-  lastModifiedDate: string
-  members: string
+const tableData = ref();
+const getFileList = async () => {
+  const response = await get('/organizationDocument/page', {page: 1, pageSize: 10,id :'1673644295582056449'});
+  tableData.value = response.data.records;
+  console.log(response)
 }
-
-const tableData = <TableData[]>[
-  {
-    icon: 'icon-DOCX',
-    name: 'G Docs July',
-    lastModifiedDate: 'May, 20 2023',
-    members: 'Only you',
-  },
-  {
-    icon: 'icon-XLS',
-    name: 'Work SheetA',
-    lastModifiedDate: 'May, 20 2023',
-    members: '5 members'
-  },
-  {
-    icon: 'icon-PDF',
-    name: 'Form news projetc',
-    lastModifiedDate: 'May, 20 2023',
-    members: '10 members'
-  },
-  {
-    icon: 'icon-MP4',
-    name: 'Project slide mp4',
-    lastModifiedDate: 'May, 20 2023',
-    members: '10 members'
-  },
-  {
-    icon: 'icon-XLS',
-    name: 'Work Sheet A',
-    lastModifiedDate: 'May, 20 2023',
-    members: '6 members'
-  },
-  {
-    icon: 'icon-ZIP',
-    name: 'Wireless Project',
-    lastModifiedDate: 'May, 20 2023',
-    members: '8 members'
-  },
-  {
-    icon: 'icon-ZIP',
-    name: 'Wireless Project',
-    lastModifiedDate: 'May, 20 2023',
-    members: '8 members'
-  },
-  {
-    icon: 'icon-ZIP',
-    name: 'Wireless Project',
-    lastModifiedDate: 'May, 20 2023',
-    members: '8 members'
-  }, {
-    icon: 'icon-ZIP',
-    name: 'Wireless Project',
-    lastModifiedDate: 'May, 20 2023',
-    members: '8 members'
-  }, {
-    icon: 'icon-ZIP',
-    name: 'Wireless Project',
-    lastModifiedDate: 'May, 20 2023',
-    members: '8 members'
-  },
-  {
-    icon: 'icon-ZIP',
-    name: 'Wireless Project',
-    lastModifiedDate: 'May, 20 2023',
-    members: '8 members'
-  },
-
-
-]
+onMounted(() => {
+  getFileList()
+})
 
 </script>
 

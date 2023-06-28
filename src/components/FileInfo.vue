@@ -2,7 +2,7 @@
   <div class="left-padding">
     <el-row>
       <div class="title">
-        <h2>File Info</h2>
+        <h2>信息概览</h2>
       </div>
     </el-row>
     <el-row class="file-wrapper">
@@ -48,6 +48,19 @@
 </template>
 
 <script lang="ts" setup>
+import {onMounted, ref} from "vue";
+import {get} from "../api/user.js";
+
+const tableData = ref();
+const getOrganizationInfo = async () => {
+  const response = await get('/organizationDocument/page', {page: 1, pageSize: 10,id :'1673644295582056449'});
+  tableData.value = response.data.records;
+  console.log(response)
+}
+onMounted(() => {
+  getOrganizationInfo()
+})
+
 const uploadData = [
   {
     name: 'John',

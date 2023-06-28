@@ -38,17 +38,17 @@
                 <span>By {{ scope.row.createdAccount.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="小组人数" prop="count">
+            <el-table-column label="小组人数">
               <template #default="scope">
                 <span class="table-title">{{ scope.row.count }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="拥有者" prop="createdAccount.name">
+            <el-table-column label="拥有者">
               <template #default="scope">
                 <span class="table-title">{{ scope.row.createdAccount.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="成员" prop="memberAccounts">
+            <el-table-column label="成员">
               <template #default="scope">
                 <el-avatar v-for="(data,index) in scope.row.memberAccounts.slice(0, 2)"
                            :key="index"

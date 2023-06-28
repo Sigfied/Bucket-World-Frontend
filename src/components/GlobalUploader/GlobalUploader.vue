@@ -83,7 +83,7 @@ export default {
     },
     // 发送给服务器的额外参数
     params: {
-      type: Object
+      type: Object,
     },
     options: {
       type: Object
@@ -93,7 +93,7 @@ export default {
 
   setup(props, {emit}) {
     const initOptions = {
-      target: 'http://localhost:3000/upload',
+      target: 'http://localhost:3000/upload/',
       chunkSize: '2048000',
       fileParameterName: 'file',
       maxChunkRetries: 3,
