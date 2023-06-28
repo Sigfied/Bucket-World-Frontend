@@ -53,23 +53,19 @@
                     <el-dropdown-menu>
                       <el-dropdown-item>
                         <span class="icon iconfont icon-a-fenxiang2"></span>
-                        <span>Share to...</span>
+                        <span>分享</span>
                       </el-dropdown-item>
                       <el-dropdown-item>
                         <span class="icon iconfont icon-xiazai"></span>
-                        <span>Download File</span>
+                        <span>下载</span>
                       </el-dropdown-item>
                       <el-dropdown-item>
                         <span class="icon iconfont icon-icon-"></span>
-                        <span>Move to</span>
-                      </el-dropdown-item>
-                      <el-dropdown-item>
-                        <span class="icon iconfont icon-fuzhi-01"></span>
-                        <span>Copy</span>
+                        <span>移动</span>
                       </el-dropdown-item>
                       <el-dropdown-item>
                         <span class="icon iconfont icon-shanchu"></span>
-                        <span>Delete File</span>
+                        <span>删除</span>
                       </el-dropdown-item>
                     </el-dropdown-menu>
                   </template>

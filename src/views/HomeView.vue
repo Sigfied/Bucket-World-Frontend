@@ -45,7 +45,7 @@
           <el-col :span="5"><span class="smallText" @click="toCustomer">查看所有</span></el-col>
         </el-row>
         <el-row :gutter="20" class="top-padding" >
-          <el-col :span="7">
+          <el-col :span="7" v-for="data in tableData" :key="data.id">
             <el-card shadow="hover">
               <el-row>
                 <el-col :span="12">
@@ -54,11 +54,11 @@
                 </el-col>
                 <el-col :span="12">
                   <div>
-                    <el-avatar v-for="member in members" :key="member.id" :size="20"
-                               :src="member.src"
+                    <el-avatar v-for="member in data.memberAccounts.slice(0,3)" :key="member.id" :size="20"
+                               :src="member.avatar"
                                shape="circle"></el-avatar>
-                    <div class="smallTitle">桶世界小组</div>
-                    <div class="number">文件数：12</div>
+                    <div class="smallTitle">{{ data.name }}</div>
+                    <div class="number">文件数：{{ data.count }}</div>
                   </div>
                 </el-col>
               </el-row>
@@ -164,7 +164,7 @@ let members = ref([
 console.log(members)
 
 const toCustomer = () => {
-  router.push({path: `/customer/`});
+  router.push({path: `/customer`});
 };
 let tableData = ref();
 const getOrganizationList = async () => {

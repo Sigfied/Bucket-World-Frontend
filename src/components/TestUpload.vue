@@ -26,7 +26,6 @@ import Bus from './GlobalUploader/utils/bus.js'
 const fileList = ref([])
 
 const upload = () => {
-  console.log('1111')
   // 打开文件选择框
   Bus.emit('openUploader', {
     // 给服务端的额外参数

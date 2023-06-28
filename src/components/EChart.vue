@@ -1,6 +1,6 @@
 <template>
   <div class="left-padding">
-    <el-badge :value="12" class="item">
+    <el-badge :value="3" class="item">
       <el-dropdown trigger="click">
         <img slot="dropdown-trigger" alt="Notification" class="notification-icon" src="../images/通知.png"/>
         <template #dropdown>
@@ -123,9 +123,10 @@ let other = ref({
 const myRef = ref(null);
 
 const notifications = ref([
-  {id: 1, message: "通知1"},
-  {id: 2, message: "通知2"},
-  {id: 3, message: "通知3"},
+  { id: 1, message: "【桶世界通知】欢迎使用桶世界分布式对象存储平台！请注意，我们已经更新了平台的安全性和性能。" },
+  { id: 2, message: "【桶世界通知】重要通知：即将进行系统维护，预计将于下周二的凌晨2点开始，为确保服务的稳定性，请提前做好相应的准备和调整。" },
+  { id: 3, message: "【桶世界通知】我们很高兴宣布，桶世界平台现在支持新的高级功能，包括自定义存储策略和数据复制选项。请查看文档以了解更多详情。" },
+
 ]);
 
 const initT = (imagesSizeNum, imagesSize, videosSizeNum, videosSize, docSizeNum, docSize, othSizeNum, othSize) => {
