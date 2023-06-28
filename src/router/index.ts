@@ -54,7 +54,7 @@ const routes = [
         path: "/file",
         name: "file",
         // @ts-ignore
-        component: () => import("../views/FileList2.vue")
+        component: () => import("../views/FileList.vue")
     },
 ]
 

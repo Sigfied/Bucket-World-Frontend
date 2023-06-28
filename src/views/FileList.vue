@@ -6,7 +6,7 @@
         <el-row><span class="hello"> </span></el-row>
         <el-row>
           <el-col :span="8">
-            <!--            <h3>Quick Access</h3>-->
+            <el-button type="primary" @click="upload">上传</el-button>
           </el-col>
           <el-col :span="15">
             <div class="input-area">
@@ -48,19 +48,19 @@
           <el-col :span="19" style="padding-left: 1% ; ">
 
             <el-row>
-              <el-button :icon="ArrowLeft" size="small" @click="back"/>
+              <el-button :icon="ArrowLeft" size="small" type="primary" @click="back"/>
               <el-breadcrumb :separator-icon="ArrowRight" style="margin-top: 5px ; margin-left: 10px">
                 <el-breadcrumb-item>开始</el-breadcrumb-item>
                 <el-breadcrumb-item v-for="(file,index) in  fileNavList">{{ file }}</el-breadcrumb-item>
               </el-breadcrumb>
             </el-row>
-            <el-row class="top-padding" >
+            <el-row class="top-padding">
               <el-table
                   v-if="showTable == 1"
                   :data="fileShowList"
                   :row-style="{height:'80px'}" style="width: 93%"
               >
-                <el-table-column label="文件名称" prop="name" width="400" >
+                <el-table-column label="文件名称" prop="name" width="400">
                   <template #default="scope">
                     <span :class="scope.row.icon" class="icon iconfont"></span>
                     <span class="table-title" @click="perView(scope.row)">{{ scope.row.name }}</span>
@@ -79,16 +79,28 @@
                 </el-table-column>
 
                 <el-table-column width="80">
-                  <template #default>
+                  <template #default="scope">
                     <el-dropdown trigger="click">
-                  <span class="iconfont icon-sangedian-copy">
-                  </span>
+                      <span class="iconfont icon-sangedian-copy">
+                      </span>
                       <template #dropdown>
                         <el-dropdown-menu>
-                          <el-dropdown-item>
+                          <el-dropdown-item @click="handleShare(scope.row)">
                             <span class="icon iconfont icon-a-fenxiang2"></span>
                             <span>分享</span>
                           </el-dropdown-item>
+                          <el-dialog :visible.sync="dialogVisible" title="带下拉菜单的弹窗" @close="handleClose">
+                            <el-dropdown>
+                              <span class="el-dropdown-link">
+                                请选择
+                                <i class="el-icon-arrow-down el-icon--right"></i>
+                              </span>
+                              <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item @click="handleConfirm">确定</el-dropdown-item>
+                                <el-dropdown-item @click="handleCancel">取消</el-dropdown-item>
+                              </el-dropdown-menu>
+                            </el-dropdown>
+                          </el-dialog>
                           <el-dropdown-item>
                             <span class="icon iconfont icon-xiazai"></span>
                             <span>下载</span>
@@ -111,18 +123,18 @@
                   </template>
                 </el-table-column>
               </el-table>
-            </el-row  >
-<!--            <el-row class="show-file">-->
+            </el-row>
+            <!--            <el-row class="show-file">-->
             <el-row>
-              <PerViewPage  :documentId= "documentId" :documentName="documentName" v-if="showTable == 0"  ></PerViewPage>
+              <PerViewPage v-if="showTable == 0" :documentId="documentId" :documentName="documentName"></PerViewPage>
 
             </el-row>
-<!--              <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>-->
-<!--              <iframe v-if="ifShowFile.pdf" :src="fileUrl" height="500px" width="100%"></iframe>-->
-<!--              <img v-if="ifShowFile.img" :src="fileUrl" alt="图片">-->
-<!--              <audio v-if="ifShowFile.music" :src="fileUrl" controls></audio>-->
-<!--              <p v-if="ifShowFile.txt"> {{ txt }}</p>-->
-<!--            </el-row>-->
+            <!--              <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>-->
+            <!--              <iframe v-if="ifShowFile.pdf" :src="fileUrl" height="500px" width="100%"></iframe>-->
+            <!--              <img v-if="ifShowFile.img" :src="fileUrl" alt="图片">-->
+            <!--              <audio v-if="ifShowFile.music" :src="fileUrl" controls></audio>-->
+            <!--              <p v-if="ifShowFile.txt"> {{ txt }}</p>-->
+            <!--            </el-row>-->
 
           </el-col>
         </el-row>
@@ -134,7 +146,7 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref, watch} from "vue";
+import {onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
@@ -143,9 +155,60 @@ import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1
 import {get} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import {useRouter} from "vue-router";
+import Bus from "../components/GlobalUploader/utils/bus.js";
+
 let documentId = ref(0);
 let documentName = ref("");
 let showTable = ref(1);
+let dialogVisible = ref(false);
+
+function handleShare(row) {
+  // 执行分享操作，可以根据具体需求编写相应的逻辑
+  console.log("分享文件:", row.name);
+
+  // 显示带下拉菜单的弹窗
+  dialogVisible.value = true;
+}
+
+const handleConfirm = () => {
+  console.log("点击了确定");
+  dialogVisible.value = false;
+};
+
+const handleCancel = () => {
+  console.log("点击了取消");
+  dialogVisible.value = false;
+};
+
+const upload = () => {
+  // 打开文件选择框
+  Bus.emit('openUploader', {
+    // 给服务端的额外参数
+    params: {
+      page: 'test'
+    },
+    options: {
+      target: 'http://localhost:3000/upload'
+    }
+  })
+}
+
+onMounted(() => {
+  // 文件选择后的回调
+  Bus.on('fileAdded', () => {
+    console.log('文件已选择')
+  })
+
+  // 文件上传成功的回调
+  Bus.on('fileSuccess', () => {
+    console.log('文件上传成功')
+  })
+})
+
+onBeforeUnmount(() => {
+  Bus.off('fileAdded')
+  Bus.off('fileSuccess')
+})
 
 //
 //右边
@@ -253,12 +316,12 @@ const checkBucket = async (index: number) => {
   }
 }
 
-const  perView = (data: any)=>  {
+const perView = (data: any) => {
 
   showTable.value = 0;
-    documentId.value = data.id
+  documentId.value = data.id
   documentName.value = data.name
-  console.log(documentId.value,documentName.value)
+  console.log(documentId.value, documentName.value)
 
 
 }
@@ -390,7 +453,6 @@ function showFile(data, type: string) {
   }
 
 
-
 }
 
 
@@ -404,8 +466,6 @@ function showFile(data, type: string) {
 
 .el-button {
   margin-right: 10px;
-  background-color: #dddddd;
-  color: #333333;
   border-radius: 4px;
   border: none;
   outline: none;
