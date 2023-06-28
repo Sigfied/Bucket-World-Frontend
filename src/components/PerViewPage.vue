@@ -1,12 +1,12 @@
 <template>
 <!--  <el-button style="margin-left: 10%" @click="preview()">点我预览</el-button>-->
-  <el-row class="show-file" style="margin-left: 10%; margin-right: 3% ;width: 87%;height: 100%">
+  <el-row class="show-file" style="margin-left: 3%; margin-right: 3% ;width: 94%;height: 100%">
 
-    <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>
-    <iframe v-if="ifShowFile.pdf" :src="fileUrl" class="pdfview"></iframe>
-    <img v-if="ifShowFile.img" :src="fileUrl" alt="正在打开">
-    <audio v-if="ifShowFile.music" :src="fileUrl" controls width="100%"></audio>
-    <p v-if="ifShowFile.txt"> {{ txt }}</p>
+    <video  v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>
+    <iframe  class="perview1" v-if="ifShowFile.pdf" :src="fileUrl"></iframe>
+    <img class="perview1" v-if="ifShowFile.img" :src="fileUrl" alt="正在打开">
+    <audio class="perview1"  v-if="ifShowFile.music" :src="fileUrl" controls width="100%"></audio>
+    <p class="perview1" v-if="ifShowFile.txt"> {{ txt }}</p>
     <div v-if="ifShowFile.excel" id="excelData">
       <table class="custom-table">
         <thead>
@@ -22,6 +22,10 @@
       </table>
     </div>
     <div v-if="ifShowFile.docx" class="container" id="container"></div>
+    <div >
+      <div class="scroll-container"  id="wordView"/>
+    </div>
+    <div slot="footer"></div>
   </el-row>
 
 </template>
@@ -32,6 +36,7 @@ import axios, {AxiosResponse} from "axios";
 import {ElMessage} from "element-plus";
 import {defaultOptions, renderAsync} from "docx-preview";
 import * as XLSX from 'xlsx';
+import mammoth from "mammoth";
 import {saveAs} from 'file-saver'
 
 
@@ -158,12 +163,26 @@ function chooseBlob(response: AxiosResponse<any>, type: string): Blob {
     fileTypes.set("mp3", "audio/mp3");
     fileTypes.set("jpeg", "image/jpeg");
     fileTypes.set("doc", "application/octet-stream");
-    fileTypes.set("docx", "application/octet-stream");
+    fileTypes.set("docx", "application/pdf");
     fileTypes.set("xls", "application/vnd.ms-excel");
     fileTypes.set("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   }
   return new Blob([response.data], {type: fileTypes.get(type)});
 }
+
+function perViewDocx(blob){
+  let reader = new FileReader();
+  reader.readAsArrayBuffer(blob);
+  reader.onload = function (e) {
+    var arrayBuffer = e.target.result; //arrayBuffer
+    mammoth.convertToHtml({ arrayBuffer: arrayBuffer }).then(displayResult).done();
+  };
+  function displayResult(result) {
+    document.getElementById("wordView").innerHTML =result.value;
+  }
+
+}
+
 
 function getFile2(url: string,data: any) {
   let fileApi = axios.create({
@@ -179,23 +198,7 @@ function getFile2(url: string,data: any) {
         console.log(type)
 
         if (type == "docx") {
-          renderAsync(chooseBlob(response, type), document.getElementById("container"), undefined, {
-                className: "container", // string：默认和文档样式类的类名/前缀
-                inWrapper: true, // boolean：启用围绕文档内容的包装器渲染
-                ignoreWidth: false, // boolean：禁用页面的渲染宽度
-                ignoreHeight: false, // boolean：禁止渲染页面高度
-                ignoreFonts: false, // boolean：禁用字体渲染
-                breakPages: true, // boolean：在分页符上启用分页
-                ignoreLastRenderedPageBreak: true, // boolean：在 lastRenderedPageBreak 元素上禁用分页
-                experimental: false, // boolean：启用实验功能（制表符停止计算）
-                trimXmlDeclaration: true, // boolean：如果为true，解析前会从​​ xmlTemplate 文档中移除 xmlTemplate 声明
-                useBase64URL: false, // boolean：如果为true，图片、字体等会转为base 64 URL，否则使用URL.createObjectURL
-                useMathMLPolyfill: false, // boolean：包括用于 chrome、edge 等的 MathML polyfill。
-                showChanges: false, // boolean：启用文档更改的实验性渲染（插入/删除）
-                debug: false // boolean：启用额外的日志记录
-              }
-          );
-
+          perViewDocx(chooseBlob(response,type))
         } else if (type == "xsl" || type == "xlsx") {
           const reader = new FileReader();
           reader.onload = (e: any) => {
@@ -238,6 +241,16 @@ function getFile2(url: string,data: any) {
 </script>
 
 <style scoped>
+
+.scroll-container {
+  height: 600px; /* 设置容器的高度 */
+  overflow-y: auto; /* 在垂直方向上显示滚动条，当内容超过容器高度时显示滚动条 */
+}
+
+.perview1{
+  width: 100%;
+  height: 600px;
+}
 
 .pdfview {
   width: 100%;
@@ -285,6 +298,15 @@ td {
 /* 鼠标悬停在表格行上时的样式 */
 tr:hover {
   background-color: #f9f9f9;
+}
+
+.word>>img
+{
+  width: 100%;
+}
+.word
+{
+  font-size: 16px;
 }
 
 </style>
