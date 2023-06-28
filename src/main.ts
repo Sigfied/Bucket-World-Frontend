@@ -42,9 +42,11 @@ const piniaPlugin = (context: PiniaPluginContext) => {
 }
 pinia.use(piniaPlugin)
 
+
 createApp(App)
     .use(router)
     .use(uploader)
     .use(pinia)
     .use(store)
-    .use(ElementPlus).component('Icon', Icon).mount('#app')
+    .use(ElementPlus)
+    .component('Icon', Icon).mount('#app')
