@@ -21,7 +21,7 @@
         </tbody>
       </table>
     </div>
-    <div v-if="ifShowFile.docx" id="container"></div>
+    <div v-if="ifShowFile.docx" class="container" id="container"></div>
   </el-row>
 
 </template>
@@ -53,19 +53,6 @@ onBeforeMount(() => {
     }
   })
 });
-
-// watch(() => props.documentId, (newValue, oldValue) => {
-//   console.log(props.documentId,props.documentName)
-//   // 当 documentId 值改变时执行的逻辑
-//   preview({
-//     params: {
-//       documentId: props.documentId
-//     }
-//   })
-//
-//   // 在这里可以调用其他函数或执行其他操作
-// });
-
 
 interface IfShowFile {
   video: boolean
@@ -193,7 +180,7 @@ function getFile2(url: string,data: any) {
 
         if (type == "docx") {
           renderAsync(chooseBlob(response, type), document.getElementById("container"), undefined, {
-                className: "kaimo-docx-666", // string：默认和文档样式类的类名/前缀
+                className: "container", // string：默认和文档样式类的类名/前缀
                 inWrapper: true, // boolean：启用围绕文档内容的包装器渲染
                 ignoreWidth: false, // boolean：禁用页面的渲染宽度
                 ignoreHeight: false, // boolean：禁止渲染页面高度
