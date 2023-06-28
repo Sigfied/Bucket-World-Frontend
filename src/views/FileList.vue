@@ -175,7 +175,7 @@ const handleShare = (row) => {
 }
 
 const getOrganizationList = async () => {
-  const response = await get('/organization/page', {page: 1, pageSize: 10});
+  const response = await get('/organization/list/' + '1673579293235965953', {});
   console.log(response.data.records);
   options.value = response.data.records;
 }
