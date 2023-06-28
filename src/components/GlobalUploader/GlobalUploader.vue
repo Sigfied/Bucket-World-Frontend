@@ -117,7 +117,8 @@ export default {
       },
       query: (file, chunk) => {
         return {
-          ...file.params
+          ...file.params,
+          id:'1673619445324963842'
         }
       }
     }

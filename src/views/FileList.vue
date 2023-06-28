@@ -77,7 +77,22 @@
                     <span>{{ scope.row.size }}</span>
                   </template>
                 </el-table-column>
-
+                <el-dialog v-model="dialogVisible" title="提示" >
+                  <el-form-item label="分享至" >
+                    <el-select v-model="value" class="m-2" placeholder="Select">
+                      <el-option
+                          v-for="item in options"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id"
+                      />
+                    </el-select>
+                  </el-form-item>
+                  <template #footer>
+                    <el-dropdown-item @click="handleConfirm">确定</el-dropdown-item>
+                    <el-dropdown-item @click="handleCancel">取消</el-dropdown-item>
+                  </template>
+                </el-dialog>
                 <el-table-column width="80">
                   <template #default="scope">
                     <el-dropdown trigger="click">
@@ -89,18 +104,7 @@
                             <span class="icon iconfont icon-a-fenxiang2"></span>
                             <span>分享</span>
                           </el-dropdown-item>
-                          <el-dialog :visible.sync="dialogVisible" title="带下拉菜单的弹窗" @close="handleClose">
-                            <el-dropdown>
-                              <span class="el-dropdown-link">
-                                请选择
-                                <i class="el-icon-arrow-down el-icon--right"></i>
-                              </span>
-                              <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item @click="handleConfirm">确定</el-dropdown-item>
-                                <el-dropdown-item @click="handleCancel">取消</el-dropdown-item>
-                              </el-dropdown-menu>
-                            </el-dropdown>
-                          </el-dialog>
+
                           <el-dropdown-item>
                             <span class="icon iconfont icon-xiazai"></span>
                             <span>下载</span>
@@ -150,25 +154,34 @@ import {onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
-import {Bucket, getBucketList} from "../api/bucket.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
 import {get} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
-import {useRouter} from "vue-router";
 import Bus from "../components/GlobalUploader/utils/bus.js";
+
 
 let documentId = ref(0);
 let documentName = ref("");
 let showTable = ref(1);
 let dialogVisible = ref(false);
+const value = ref('');
+const options =ref();
 
-function handleShare(row) {
-  // 执行分享操作，可以根据具体需求编写相应的逻辑
+
+const handleShare = (row) => {
   console.log("分享文件:", row.name);
-
   // 显示带下拉菜单的弹窗
   dialogVisible.value = true;
 }
+
+const getOrganizationList = async () => {
+  const response = await get('/organization/page', {page: 1, pageSize: 10});
+  console.log(response.data.records);
+  options.value = response.data.records;
+}
+onMounted(() => {
+  getOrganizationList()
+})
 
 const handleConfirm = () => {
   console.log("点击了确定");
