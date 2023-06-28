@@ -30,7 +30,7 @@ const routes = [
         path: '/perview',
         name: 'perview',
         // @ts-ignore
-        component:  () => import(/* webpackChunkName: "about" */ '../components/PerViewPage.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../components/PerViewPage.vue')
     },
     {
         path: '/about',

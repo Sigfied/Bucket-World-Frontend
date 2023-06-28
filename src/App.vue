@@ -32,12 +32,14 @@ import GlobalUploader from "./components/GlobalUploader/GlobalUploader.vue";
   height: 100%;
   overflow: hidden;
 }
+
 .hello {
   margin-top: -18px;
   color: gray;
   font-weight: 600;
   font-size: 14px;
 }
+
 .show-main {
   padding-left: 55px;
   padding-right: 20px;

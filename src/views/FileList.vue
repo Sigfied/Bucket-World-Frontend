@@ -6,7 +6,7 @@
         <el-row><span class="hello"> </span></el-row>
         <el-row>
           <el-col :span="8">
-<!--            <h3>Quick Access</h3>-->
+            <!--            <h3>Quick Access</h3>-->
           </el-col>
           <el-col :span="15">
             <div class="input-area">
@@ -126,7 +126,6 @@
   </el-row>
 
 
-
 </template>
 
 <script lang="ts" setup>
@@ -212,7 +211,7 @@ const bucketList = ref({});
 const activeIndex = ref(-1); // 默认选中项的索引
 
 const buckList = async () => {
-  const response = await get('/bucket/list/1673579293235965953');
+  const response = await get('/bucket/list/1673579293235965953', {});
   console.log(response.data);
   bucketList.value = response.data;
 }
@@ -229,19 +228,19 @@ onMounted(() => {
 
 
 // 处理按钮点击事件
-const checkBucket = async (index: number) => {
-  if (activeIndex.value === index) {
-    activeIndex.value = -1;
-  } else {
-    activeIndex.value = index;
-    console.log( bucketList.value[index].id)
-    const response = await get('/document/list' ,{id:bucketList.value[index].id} );
-    console.log(response);
-    fileShowList.value = response.data;
-
-  }
-
-};
+// const checkBucket = async (index: number) => {
+//   if (activeIndex.value === index) {
+//     activeIndex.value = -1;
+//   } else {
+//     activeIndex.value = index;
+//     console.log( bucketList.value[index].id)
+//     const response = await get('/document/list' ,{id:bucketList.value[index].id} );
+//     console.log(response);
+//     fileShowList.value = response.data;
+//
+//   }
+//
+// };
 
 
 // 监听 items 数组数据变化，并重新设置 activeIndex 的值

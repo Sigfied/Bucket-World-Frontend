@@ -3,10 +3,10 @@
     <!-- 上传 -->
     <uploader
         ref="uploaderRef"
-        class="uploader-app"
-        :options="initOptions"
-        :file-status-text="fileStatusText"
         :auto-start="false"
+        :file-status-text="fileStatusText"
+        :options="initOptions"
+        class="uploader-app"
         @file-added="onFileAdded"
         @file-success="onFileSuccess"
         @file-progress="onFileProgress"
@@ -18,15 +18,15 @@
 
       <uploader-list v-show="panelShow">
         <template #default="{ fileList }">
-          <div class="file-panel" :class="{ collapse: collapse }">
+          <div :class="{ collapse: collapse }" class="file-panel">
             <div class="file-title">
               <div class="title">文件列表</div>
               <div class="operate">
                 <el-button :title="collapse ? '展开' : '折叠'" link @click="collapse = !collapse">
-                  <Icon :icon="collapse ? 'ri:fullscreen-fill' : 'ri:subtract-fill'" width="18" />
+                  <Icon :icon="collapse ? 'ri:fullscreen-fill' : 'ri:subtract-fill'" width="18"/>
                 </el-button>
-                <el-button title="关闭" link @click="close">
-                  <Icon icon="ri:close-fill" width="20" />
+                <el-button link title="关闭" @click="close">
+                  <Icon icon="ri:close-fill" width="20"/>
                 </el-button>
               </div>
             </div>
@@ -45,7 +45,8 @@
                 ></uploader-file>
               </li>
               <div v-if="!fileList.length" class="no-file">
-                <Icon icon="ri:file-3-line" width="16" /> 暂无待上传文件
+                <Icon icon="ri:file-3-line" width="16"/>
+                暂无待上传文件
               </div>
             </ul>
           </div>
@@ -68,9 +69,9 @@
  *
  *   2. 作为普通组件在单个页面中调用，使用props
  */
-import { ref, watch, computed, nextTick, onMounted } from 'vue'
-import { mergeSimpleUpload } from '~/api/index.js'
-import { generateMD5 } from './utils/md5'
+import {ref, watch, computed, nextTick, onMounted} from 'vue'
+import {mergeSimpleUpload} from '~/api/index.js'
+import {generateMD5} from './utils/md5'
 import Bus from './utils/bus'
 
 export default {
@@ -90,7 +91,7 @@ export default {
   },
   emits: ['fileAdded', 'fileSuccess'],
 
-  setup(props, { emit }) {
+  setup(props, {emit}) {
     const initOptions = {
       target: 'http://localhost:3000/upload',
       chunkSize: '2048000',
@@ -109,7 +110,8 @@ export default {
           } else {
             skip = (objMessage.uploaded || []).indexOf(chunk.offset + 1) >= 0
           }
-        } catch (e) {}
+        } catch (e) {
+        }
 
         return skip
       },
@@ -175,6 +177,7 @@ export default {
         input.setAttribute(opts.accept, accept.join())
       }
     }
+
     async function onFileAdded(file) {
       panelShow.value = true
       trigger('fileAdded')
@@ -184,6 +187,7 @@ export default {
       const md5 = await computeMD5(file)
       startUpload(file, md5)
     }
+
     function computeMD5(file) {
       // 文件状态设为"计算MD5"
       statusSet(file.id, 'md5')
@@ -216,11 +220,13 @@ export default {
         })
       })
     }
+
     // md5计算完毕，开始上传
     function startUpload(file, md5) {
       file.uniqueIdentifier = md5
       file.resume()
     }
+
     function onFileSuccess(rootFile, file, response, chunk) {
       let res = JSON.parse(response)
 
@@ -248,7 +254,8 @@ export default {
 
               statusRemove(file.id)
             })
-            .catch((e) => {})
+            .catch((e) => {
+            })
 
         // 不需要合并
       } else {
@@ -256,6 +263,7 @@ export default {
         console.log('上传成功')
       }
     }
+
     function onFileProgress(rootFile, file, chunk) {
       console.log(
           `上传中 ${file.name}，chunk：${chunk.startByte / 1024 / 1024} ~ ${
@@ -263,13 +271,16 @@ export default {
           }`
       )
     }
+
     function onFileError(rootFile, file, response, chunk) {
       error(response)
     }
+
     function close() {
       uploader.value.cancel()
       panelShow.value = false
     }
+
     /**
      * 新增的自定义的状态: 'md5'、'merging'、'transcoding'、'failed'
      * @param id
@@ -306,6 +317,7 @@ export default {
         statusWrap.appendChild(statusTag)
       })
     }
+
     function statusRemove(id) {
       customStatus.value = ''
       nextTick(() => {
@@ -313,10 +325,12 @@ export default {
         statusTag.remove()
       })
     }
+
     function trigger(e) {
       Bus.emit(e)
       emit(e)
     }
+
     function error(msg) {
       ElNotification({
         title: '错误',
@@ -327,7 +341,7 @@ export default {
     }
 
     onMounted(() => {
-      Bus.on('openUploader', ({ params = {}, options = {} }) => {
+      Bus.on('openUploader', ({params = {}, options = {}}) => {
         customParams = params
 
         customizeOptions(options)
@@ -356,7 +370,7 @@ export default {
 }
 </script>
 
-<style   lang="scss">
+<style lang="scss">
 #global-uploader {
   &:not(.global-uploader-single) {
     position: fixed;
@@ -416,6 +430,7 @@ export default {
       .file-title {
         background-color: #e7ecf2;
       }
+
       .file-list {
         height: 0;
       }
@@ -450,16 +465,20 @@ export default {
     &[icon='image'] {
       background: url(./images/image-icon.png);
     }
+
     &[icon='audio'] {
       background: url(./images/audio-icon.png);
       background-size: contain;
     }
+
     &[icon='video'] {
       background: url(./images/video-icon.png);
     }
+
     &[icon='document'] {
       background: url(./images/text-icon.png);
     }
+
     &[icon='unknown'] {
       background: url(./images/zip.png) no-repeat center;
       background-size: contain;

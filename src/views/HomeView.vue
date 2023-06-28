@@ -42,9 +42,9 @@
         </el-row>
         <el-row class="top-padding ">
           <el-col :span="19"><span class="title">分享群组</span></el-col>
-          <el-col :span="5"><span class="smallText"  @click="toCustomer">查看所有</span></el-col>
+          <el-col :span="5"><span class="smallText" @click="toCustomer">查看所有</span></el-col>
         </el-row>
-        <el-row :gutter="20" class="top-padding">
+        <el-row :gutter="20" class="top-padding" >
           <el-col :span="7">
             <el-card shadow="hover">
               <el-row>
@@ -64,44 +64,7 @@
               </el-row>
             </el-card>
           </el-col>
-          <el-col :span="7">
-            <el-card shadow="hover">
-              <el-row>
-                <el-col :span="12">
-                  <img alt="Image" class="folder" src="../images/文件夹.png">
 
-                </el-col>
-                <el-col :span="12">
-                  <div>
-                    <el-avatar v-for="member in members" :key="member.id" :size="20"
-                               :src="member.src"
-                               shape="circle"></el-avatar>
-                    <div class="smallTitle">编码学习小组</div>
-                    <div class="number">文件数：14</div>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </el-col>
-          <el-col :span="7">
-            <el-card shadow="hover">
-              <el-row>
-                <el-col :span="12">
-                  <img alt="Image" class="folder" src="../images/文件夹.png">
-
-                </el-col>
-                <el-col :span="12">
-                  <div>
-                    <el-avatar v-for="member in members" :key="member.id" :size="20"
-                               :src="member.src"
-                               shape="circle"></el-avatar>
-                    <div class="smallTitle">项目交流群</div>
-                    <div class="number">文件数：32</div>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </el-col>
         </el-row>
 
         <el-row class="top-padding title">最近文件</el-row>
@@ -177,10 +140,11 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import EChart from "../components/EChart.vue";
 import {useStore} from "vuex";
 import router from "../router";
+import {get} from "../api/user.js";
 
 const store = useStore();
 const user = store.getters.getUserData;
@@ -199,9 +163,20 @@ let members = ref([
 
 console.log(members)
 
-const toCustomer= () => {
-  router.push({ path: `/customer/` });
+const toCustomer = () => {
+  router.push({path: `/customer/`});
 };
+let tableData = ref();
+const getOrganizationList = async () => {
+  const response = await get('/organization/page', {page: 1, pageSize: 10});
+  console.log(response.data.records);
+  tableData.value = response.data.records;
+  console.log(tableData);
+}
+
+onMounted(() => {
+  getOrganizationList()
+})
 </script>
 
 <style lang="scss" scoped>

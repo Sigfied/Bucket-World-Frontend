@@ -206,8 +206,8 @@ const checkBucket = async (index: number) => {
     activeIndex.value = -1;
   } else {
     activeIndex.value = index;
-    console.log( bucketList.value[index].id)
-    const response = await get('/document/list' ,{id:bucketList.value[index].id} );
+    console.log(bucketList.value[index].id)
+    const response = await get('/document/list', {id: bucketList.value[index].id});
     console.log(response);
     fileShowList.value = response.data;
 

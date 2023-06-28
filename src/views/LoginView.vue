@@ -1,35 +1,35 @@
 <template>
   <div class="login-register">
     <div class="contain">
-      <div class="big-box" :class="{ active: isLogin }">
-        <div class="big-contain" :key="isLogin ? 'bigContainLogin' : 'bigContainRegister'" v-if="isLogin">
+      <div :class="{ active: isLogin }" class="big-box">
+        <div v-if="isLogin" :key="isLogin ? 'bigContainLogin' : 'bigContainRegister'" class="big-contain">
           <div class="btitle">账户登录</div>
           <div class="bform">
-            <input type="email" placeholder="账号" v-model="form.useremail" />
-            <span class="errTips" v-if="emailError">* 邮箱填写错误 *</span>
-            <input type="password" placeholder="密码" v-model="form.userpwd" />
-            <span class="errTips" v-if="passwordError">* 密码填写错误 *</span>
+            <input v-model="form.useremail" placeholder="账号" type="email"/>
+            <span v-if="emailError" class="errTips">* 邮箱填写错误 *</span>
+            <input v-model="form.userpwd" placeholder="密码" type="password"/>
+            <span v-if="passwordError" class="errTips">* 密码填写错误 *</span>
           </div>
           <button class="bbutton" @click="tryLogin">登录</button>
         </div>
-        <div class="big-contain" :key="isLogin ? 'bigContainRegister' : 'bigContainLogin'" v-else>
+        <div v-else :key="isLogin ? 'bigContainRegister' : 'bigContainLogin'" class="big-contain">
           <div class="btitle">创建账户</div>
           <div class="bform">
-            <input type="text" placeholder="用户名" v-model="form.username" />
-            <span class="errTips" v-if="existed">* 用户名已经存在！ *</span>
-            <input type="email" placeholder="账号" v-model="form.useremail" />
-            <input type="password" placeholder="密码" v-model="form.userpwd" />
+            <input v-model="form.username" placeholder="用户名" type="text"/>
+            <span v-if="existed" class="errTips">* 用户名已经存在！ *</span>
+            <input v-model="form.useremail" placeholder="账号" type="email"/>
+            <input v-model="form.userpwd" placeholder="密码" type="password"/>
           </div>
           <button class="bbutton">注册</button>
         </div>
       </div>
-      <div class="small-box" :class="{ active: isLogin }">
-        <div class="small-contain" :key="isLogin ? 'smallContainRegister' : 'smallContainLogin'" v-if="isLogin">
+      <div :class="{ active: isLogin }" class="small-box">
+        <div v-if="isLogin" :key="isLogin ? 'smallContainRegister' : 'smallContainLogin'" class="small-contain">
           <div class="stitle">你好，朋友!</div>
           <p class="scontent">开始注册，一起加入桶世界</p>
           <button class="sbutton" @click="changeType">注册</button>
         </div>
-        <div class="small-contain" :key="isLogin ? 'smallContainLogin' : 'smallContainRegister'" v-else>
+        <div v-else :key="isLogin ? 'smallContainLogin' : 'smallContainRegister'" class="small-contain">
           <div class="stitle">欢迎回来!</div>
           <p class="scontent">与我们保持联系，请登录你的账户</p>
           <button class="sbutton" @click="changeType">登录</button>
@@ -39,16 +39,16 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ElMessage } from "element-plus";
-import { ref } from "vue";
-import { useStore } from "vuex";
+<script lang="ts" setup>
+import {ElMessage} from "element-plus";
+import {ref} from "vue";
+import {useStore} from "vuex";
 import router from "../router";
 import {post} from "../api/user.js";
 
 const store = useStore();
 const tryLogin = async () => {
-  const response = await post('/account/login',{
+  const response = await post('/account/login', {
     "avatar": "",
     "createTime": "",
     "id": 0,
@@ -56,7 +56,8 @@ const tryLogin = async () => {
     "name": "",
     "password": "123456",
     "updateTime": "",
-    "username": "dwy" });
+    "username": "dwy"
+  });
   console.log(response);
   store.commit('setUserData', response.data);
   ElMessage({

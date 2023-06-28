@@ -6,7 +6,7 @@
         <el-row><span class="hello"> </span></el-row>
         <el-row>
           <el-col :span="8">
-<!--            <h3>Quick Access</h3>-->
+            <!--            <h3>Quick Access</h3>-->
           </el-col>
           <el-col :span="15">
             <div class="input-area">
@@ -34,8 +34,8 @@
             </el-table-column>
             <el-table-column label="上次修改时间">
               <template #default="scope">
-                <span class="table-title">{{scope.row.updateTime }}</span><br/>
-                <span>By {{ scope.row.accountId }}</span>
+                <span class="table-title">{{ scope.row.updateTime }}</span><br/>
+                <span>By {{ scope.row.createdAccount.name }}</span>
               </template>
             </el-table-column>
             <el-table-column label="小组人数" prop="count">
@@ -43,23 +43,23 @@
                 <span class="table-title">{{ scope.row.count }}</span>
               </template>
             </el-table-column>
-            <!--            <el-table-column label="拥有者" prop="owner">-->
-            <!--              <template #default="scope">-->
-            <!--                <span class="table-title">{{ scope.row.owner }}</span>-->
-            <!--              </template>-->
-            <!--            </el-table-column>-->
-            <!--            <el-table-column label="成员" prop="member">-->
-            <!--              <template #default="scope">-->
-            <!--                <el-avatar v-for="(data,index) in scope.row.members"-->
-            <!--                           :key="index"-->
-            <!--                           :size="30" :src="data.avatar"-->
-            <!--                           class="avatars"-->
-            <!--                ></el-avatar>-->
-            <!--                <el-avatar v-if="scope.row.members.length>2" :size="30" class="avatars">-->
-            <!--                  <img>+{{ scope.row.members.length - 2 }}-->
-            <!--                </el-avatar>-->
-            <!--              </template>-->
-            <!--            </el-table-column>-->
+            <el-table-column label="拥有者" prop="createdAccount.name">
+              <template #default="scope">
+                <span class="table-title">{{ scope.row.createdAccount.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="成员" prop="memberAccounts">
+              <template #default="scope">
+                <el-avatar v-for="(data,index) in scope.row.memberAccounts.slice(0, 2)"
+                           :key="index"
+                           :size="30" :src="data.avatar"
+                           class="avatars"
+                ></el-avatar>
+                <el-avatar v-if="scope.row.memberAccounts.length > 2" :size="30" class="avatars">
+                  <img>+{{ scope.row.memberAccounts.length - 2 }}
+                </el-avatar>
+              </template>
+            </el-table-column>
             <el-table-column width="80">
               <template #default>
                 <el-dropdown trigger="click">
@@ -89,8 +89,8 @@ import {get} from "../api/user.js";
 import router from "../router";
 
 let tableData = ref();
-const getList = async () => {
-  const response = await get('/group/page?page=1&pageSize=10');
+const getOrganizationList = async () => {
+  const response = await get('/organization/page', {page: 1, pageSize: 10});
   console.log(response.data.records);
   tableData.value = response.data.records;
   console.log(tableData);
@@ -98,12 +98,12 @@ const getList = async () => {
 const getRowNumber = (index) => {
   console.log("当前行号：", index);
   router.push({
-    path:`/share/${index}`
+    path: `/share/${index}`
   })
 
 };
 onMounted(() => {
-  getList()
+  getOrganizationList()
 })
 // const name = ["John", "Jack", "Ali", "Hong"]
 // const membersData = <Member[]>[{
@@ -148,7 +148,6 @@ onMounted(() => {
 //.left-padding {
 //  padding-left: 80px;
 //}
-
 
 
 :deep(.el-input__wrapper) {

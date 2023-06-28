@@ -23,8 +23,10 @@ export async function post(url, data) {
         });
 }
 
-export async function get(url) {
-    return api.get(url)
+export async function get(url, data) {
+    return api.get(url, {
+        params: data
+    })
         .then(response => {
             return response.data;
         })
