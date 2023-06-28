@@ -184,7 +184,7 @@ const bucketList = ref({});
 const activeIndex = ref(-1); // 默认选中项的索引
 
 const buckList = async () => {
-  const response = await get('/bucket/list',{bucketId:1673579293235965953});
+  const response = await get('/bucket/list/1673579293235965953');
   console.log(response.data);
   bucketList.value = response.data;
 }

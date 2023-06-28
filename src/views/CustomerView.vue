@@ -105,11 +105,7 @@ const searchInput = ref('')
 
 let tableData = ref([]);
 
-const response = await get('/group/page',{
-  page:"1",
-  pageSize:"10",
-  name:"",
-} );
+const response = await get('/group/page?page=1&pageSize=10&name=""');
 console.log(response);
 const name = ["John", "Jack", "Ali", "Hong"]
 const membersData = <Member[]>[{

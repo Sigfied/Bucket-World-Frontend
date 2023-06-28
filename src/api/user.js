@@ -1,7 +1,6 @@
 import axios from 'axios';
 // @ts-ignore
 import {ElMessage} from "element-plus";
-import {d} from "../../docs/assets/index.0f0c491a.js";
 
 const api = axios.create({
     // 根据您的实际情况设置baseURL
@@ -24,8 +23,8 @@ export async function post(url, data) {
         });
 }
 
-export async function get(url, data) {
-    return api.get(url, data)
+export async function get(url) {
+    return api.get(url)
         .then(response => {
             return response.data;
         })
@@ -39,5 +38,3 @@ export async function get(url, data) {
             throw error;
         });
 }
-
-
