@@ -46,6 +46,7 @@
           </el-col>
           <!--    这是右边-->
           <el-col :span="19" style="padding-left: 1% ; ">
+            <PerViewPage></PerViewPage>
             <el-row>
               <el-button :icon="ArrowLeft" size="small" @click="back"/>
               <el-breadcrumb :separator-icon="ArrowRight" style="margin-top: 5px ; margin-left: 10px">
@@ -136,6 +137,7 @@ import {getFiles, getString} from "../api/objects.ts";
 import {Bucket, getBucketList} from "../api/bucket.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
 import {get} from "../api/user.js";
+import PerViewPage from "../components/PerViewPage.vue";
 
 //
 //右边
@@ -228,18 +230,18 @@ onMounted(() => {
 
 
 // 处理按钮点击事件
-// const checkBucket = async (index: number) => {
-//   if (activeIndex.value === index) {
-//     activeIndex.value = -1;
-//   } else {
-//     activeIndex.value = index;
-//     console.log( bucketList.value[index].id)
-//     const response = await get('/document/list' ,{id:bucketList.value[index].id} );
-//     console.log(response);
-//     fileShowList.value = response.data;
-//
-//   }
-//
+const checkBucket = async (index: number) => {
+  if (activeIndex.value === index) {
+    activeIndex.value = -1;
+  } else {
+    activeIndex.value = index;
+    console.log( bucketList.value[index].id)
+    const response = await get('/document/list/'+bucketList.value[index].id ,{} );
+    console.log(response);
+    fileShowList.value = response.data;
+
+  }
+
 // };
 
 
@@ -365,6 +367,7 @@ function showFile(data, type: string) {
           console.error("请求失败:", error);
         });
   }
+}
 
 
 }
