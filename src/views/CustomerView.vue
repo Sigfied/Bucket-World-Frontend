@@ -14,7 +14,6 @@
                   v-model="searchInput"
                   class="input-with-select"
                   placeholder="搜索"
-                  @input="fuzzySearch"
               >
                 <template #append>
                   <span class="iconfont icon-sousuo"></span>
@@ -29,46 +28,40 @@
           <el-table :data="tableData" :row-style="{height:'80px'}" style="width: 100%;height: 520px">
             <el-table-column label="文件名" prop="name" width="360">
               <template #default="scope">
-                <span :class="scope.row.icon" class="icon iconfont"></span>
-                <span class="table-title">{{ extractDataFromPath(scope.row.name) }}</span>
+                <!--                <span :class="scope.row.icon" class="icon iconfont"></span>-->
+                <span class="table-title">{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column :sort-method="function (obj1:TableData,obj2 :TableData){
-                            let date1 = new Date(obj1.lastModifiedDate)
-                            let date2 = new Date(obj2.lastModifiedDate)
-                            return date1.getTime() - date2.getTime();
-                        }" :sortable="true" label="上次修改时间">
+            <el-table-column  label="上次修改时间">
               <template #default="scope">
                                 <span class="table-title">{{
-                                    getTimeDifference(scope.row.lastModifiedDate)
+                                    scope.row.updateTime
                                   }}</span><br/>
-                <span>By {{ scope.row.owner }}</span>
+                <span>By {{ scope.row.accountId}}</span>
               </template>
             </el-table-column>
-            <el-table-column :sort-method="function(obj1:TableData,obj2 :TableData ) {
-                          return obj1.sizeNum - obj2.sizeNum
-                        }" :sortable="true" label="文件大小" prop="size">
+            <el-table-column label="小组人数" prop="count">
               <template #default="scope">
-                <span class="table-title">{{ scope.row.size }}</span>
+                <span class="table-title">{{ scope.row.count }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="拥有者" prop="owner">
-              <template #default="scope">
-                <span class="table-title">{{ scope.row.owner }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="成员" prop="member">
-              <template #default="scope">
-                <el-avatar v-for="(data,index) in scope.row.members"
-                           :key="index"
-                           :size="30" :src="data.avatar"
-                           class="avatars"
-                ></el-avatar>
-                <el-avatar v-if="scope.row.members.length>2" :size="30" class="avatars">
-                  <img>+{{ scope.row.members.length - 2 }}
-                </el-avatar>
-              </template>
-            </el-table-column>
+            <!--            <el-table-column label="拥有者" prop="owner">-->
+            <!--              <template #default="scope">-->
+            <!--                <span class="table-title">{{ scope.row.owner }}</span>-->
+            <!--              </template>-->
+            <!--            </el-table-column>-->
+            <!--            <el-table-column label="成员" prop="member">-->
+            <!--              <template #default="scope">-->
+            <!--                <el-avatar v-for="(data,index) in scope.row.members"-->
+            <!--                           :key="index"-->
+            <!--                           :size="30" :src="data.avatar"-->
+            <!--                           class="avatars"-->
+            <!--                ></el-avatar>-->
+            <!--                <el-avatar v-if="scope.row.members.length>2" :size="30" class="avatars">-->
+            <!--                  <img>+{{ scope.row.members.length - 2 }}-->
+            <!--                </el-avatar>-->
+            <!--              </template>-->
+            <!--            </el-table-column>-->
             <el-table-column width="80">
               <template #default>
                 <el-dropdown trigger="click">
@@ -94,30 +87,29 @@
 
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue'
-import {BucketStore, Member, TableData} from "../store/bucket.ts";
-import {IconTypeMap} from "../api/api.ts";
-import {formatFileSize, getTimeDifference} from "../api/utils.ts";
 import {get} from "../api/user.js";
 
-const bucketStore = BucketStore()
-const searchInput = ref('')
-
-
-let tableData = ref([]);
-
-const response = await get('/group/page?page=1&pageSize=10&name=""');
-console.log(response);
-const name = ["John", "Jack", "Ali", "Hong"]
-const membersData = <Member[]>[{
-  avatar: "src/images/团队头像/头像1.jpg",
-  link: ""
-}, {
-  avatar: "src/images/团队头像/头像2.jpg",
-  link: ""
-}, {
-  avatar: "src/images/团队头像/头像3.jpg",
-  link: ""
-}]
+let tableData = ref();
+const getList = async () => {
+  const response = await get('/group/page?page=1&pageSize=10');
+  console.log(response.data.records);
+  tableData.value = response.data.records;
+  console.log(tableData);
+}
+onMounted(() => {
+  getList()
+})
+// const name = ["John", "Jack", "Ali", "Hong"]
+// const membersData = <Member[]>[{
+//   avatar: "src/images/团队头像/头像1.jpg",
+//   link: ""
+// }, {
+//   avatar: "src/images/团队头像/头像2.jpg",
+//   link: ""
+// }, {
+//   avatar: "src/images/团队头像/头像3.jpg",
+//   link: ""
+// }]
 </script>
 
 <style lang="scss" scoped>
