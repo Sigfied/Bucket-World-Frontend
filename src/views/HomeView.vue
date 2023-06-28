@@ -44,8 +44,8 @@
           <el-col :span="19"><span class="title">分享群组</span></el-col>
           <el-col :span="5"><span class="smallText" @click="toCustomer">查看所有</span></el-col>
         </el-row>
-        <el-row :gutter="20" class="top-padding" >
-          <el-col :span="7" v-for="data in tableData" :key="data.id">
+        <el-row :gutter="20" class="top-padding">
+          <el-col v-for="data in tableData" :key="data.id" :span="7">
             <el-card shadow="hover">
               <el-row>
                 <el-col :span="12">
@@ -168,7 +168,7 @@ const toCustomer = () => {
 };
 let tableData = ref();
 const getOrganizationList = async () => {
-  const response = await get('/organization/page', {id:'1673579293235965953', page: 1, pageSize: 3});
+  const response = await get('/organization/page', {id: '1673579293235965953', page: 1, pageSize: 3});
   console.log(response.data.records);
   tableData.value = response.data.records;
   console.log(tableData);

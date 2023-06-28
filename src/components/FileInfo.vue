@@ -53,7 +53,7 @@ import {get} from "../api/user.js";
 
 const tableData = ref();
 const getOrganizationInfo = async () => {
-  const response = await get('/organizationDocument/page', {page: 1, pageSize: 10,id :'1673644295582056449'});
+  const response = await get('/organizationDocument/page', {page: 1, pageSize: 10, id: '1673644295582056449'});
   tableData.value = response.data.records;
   console.log(response)
 }

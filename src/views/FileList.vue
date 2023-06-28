@@ -89,8 +89,8 @@
                             <span class="icon iconfont icon-a-fenxiang2"></span>
                             <span>分享</span>
                           </el-dropdown-item>
-                          <el-dialog v-model="dialogVisible" title="提示" >
-                            <el-form-item label="分享至" >
+                          <el-dialog v-model="dialogVisible" title="提示">
+                            <el-form-item label="分享至">
                               <el-select v-model="value" class="m-2" placeholder="Select">
                                 <el-option
                                     v-for="item in options"
@@ -165,7 +165,7 @@ let documentName = ref("");
 let showTable = ref(1);
 let dialogVisible = ref(false);
 const value = ref('');
-const options =ref();
+const options = ref();
 
 
 const handleShare = (row) => {

@@ -1,12 +1,12 @@
 <template>
-<!--  <el-button style="margin-left: 10%" @click="preview()">点我预览</el-button>-->
+  <!--  <el-button style="margin-left: 10%" @click="preview()">点我预览</el-button>-->
   <el-row class="show-file" style="margin-left: 3%; margin-right: 3% ;width: 94%;height: 100%">
 
-    <video  v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>
-    <iframe  class="perview1" v-if="ifShowFile.pdf" :src="fileUrl"></iframe>
-    <img class="perview1" v-if="ifShowFile.img" :src="fileUrl" alt="正在打开">
-    <audio class="perview1"  v-if="ifShowFile.music" :src="fileUrl" controls width="100%"></audio>
-    <p class="perview1" v-if="ifShowFile.txt"> {{ txt }}</p>
+    <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>
+    <iframe v-if="ifShowFile.pdf" :src="fileUrl" class="perview1"></iframe>
+    <img v-if="ifShowFile.img" :src="fileUrl" alt="正在打开" class="perview1">
+    <audio v-if="ifShowFile.music" :src="fileUrl" class="perview1" controls width="100%"></audio>
+    <p v-if="ifShowFile.txt" class="perview1"> {{ txt }}</p>
     <div v-if="ifShowFile.excel" id="excelData">
       <table class="custom-table">
         <thead>
@@ -21,9 +21,9 @@
         </tbody>
       </table>
     </div>
-    <div v-if="ifShowFile.docx" class="container" id="container"></div>
-    <div >
-      <div class="scroll-container"  id="wordView"/>
+    <div v-if="ifShowFile.docx" id="container" class="container"></div>
+    <div>
+      <div id="wordView" class="scroll-container"/>
     </div>
     <div slot="footer"></div>
   </el-row>
@@ -44,13 +44,13 @@ const props = defineProps({
   documentId: {
     required: true
   },
-  documentName:{
-    required:true
+  documentName: {
+    required: true
   }
 });
 
 onBeforeMount(() => {
-  console.log(props.documentId,props.documentName)
+  console.log(props.documentId, props.documentName)
   // 当 documentId 值改变时执行的逻辑
   preview({
     params: {
@@ -82,9 +82,8 @@ const ifShowFile = ref<IfShowFile>({
 })
 
 
-
 function preview(data) {
-  let temp = getFile2("/api/download",data)
+  let temp = getFile2("/api/download", data)
   // ifShowFile.value.img = true;
 }
 
@@ -170,27 +169,28 @@ function chooseBlob(response: AxiosResponse<any>, type: string): Blob {
   return new Blob([response.data], {type: fileTypes.get(type)});
 }
 
-function perViewDocx(blob){
+function perViewDocx(blob) {
   let reader = new FileReader();
   reader.readAsArrayBuffer(blob);
   reader.onload = function (e) {
     var arrayBuffer = e.target.result; //arrayBuffer
-    mammoth.convertToHtml({ arrayBuffer: arrayBuffer }).then(displayResult).done();
+    mammoth.convertToHtml({arrayBuffer: arrayBuffer}).then(displayResult).done();
   };
+
   function displayResult(result) {
-    document.getElementById("wordView").innerHTML =result.value;
+    document.getElementById("wordView").innerHTML = result.value;
   }
 
 }
 
 
-function getFile2(url: string,data: any) {
+function getFile2(url: string, data: any) {
   let fileApi = axios.create({
     baseURL: "http://localhost:9000",
     responseType: "blob",
 
   });
-  return fileApi.get(url,data)
+  return fileApi.get(url, data)
       .then(response => {
         const contentDisposition = props.documentName;
         let type = getFileFormat(contentDisposition);
@@ -198,7 +198,7 @@ function getFile2(url: string,data: any) {
         console.log(type)
 
         if (type == "docx") {
-          perViewDocx(chooseBlob(response,type))
+          perViewDocx(chooseBlob(response, type))
         } else if (type == "xsl" || type == "xlsx") {
           const reader = new FileReader();
           reader.onload = (e: any) => {
@@ -247,7 +247,7 @@ function getFile2(url: string,data: any) {
   overflow-y: auto; /* 在垂直方向上显示滚动条，当内容超过容器高度时显示滚动条 */
 }
 
-.perview1{
+.perview1 {
   width: 100%;
   height: 600px;
 }
@@ -300,12 +300,11 @@ tr:hover {
   background-color: #f9f9f9;
 }
 
-.word>>img
-{
+.word > > img {
   width: 100%;
 }
-.word
-{
+
+.word {
   font-size: 16px;
 }
 

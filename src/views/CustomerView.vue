@@ -90,7 +90,7 @@ import router from "../router";
 
 let tableData = ref();
 const getOrganizationList = async () => {
-  const response = await get('/organization/page', {id:'1673579293235965953', page: 1, pageSize: 10});
+  const response = await get('/organization/page', {id: '1673579293235965953', page: 1, pageSize: 10});
   console.log(response.data.records);
   tableData.value = response.data.records;
   console.log(tableData);

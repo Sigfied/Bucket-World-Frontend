@@ -29,7 +29,7 @@
             <el-table-column label="文件名称" prop="document.name" sortable width="300">
               <template #default="scope">
                 <span :class="scope.row.icon" class="icon iconfont"></span>
-                <span class="table-title">{{ scope.row.document.name}}</span>
+                <span class="table-title">{{ scope.row.document.name }}</span>
               </template>
             </el-table-column>
             <el-table-column label="成员" prop="account.name">
@@ -92,7 +92,7 @@ const searchInput = ref('');
 
 const tableData = ref();
 const getFileList = async () => {
-  const response = await get('/organizationDocument/page', {page: 1, pageSize: 10,id :'1673644295582056449'});
+  const response = await get('/organizationDocument/page', {page: 1, pageSize: 10, id: '1673644295582056449'});
   tableData.value = response.data.records;
   console.log(response)
 }

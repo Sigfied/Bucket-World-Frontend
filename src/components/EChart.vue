@@ -99,7 +99,7 @@ import * as echarts from "echarts";
 import DownloadAndUpload from "./DownloadAndUpload.vue";
 import {BucketStore} from "../store/bucket.ts";
 import {get} from "../api/user.js";
-import { convertFileSize } from '../util/fileUtils.js';
+import {convertFileSize} from '../util/fileUtils.js';
 
 const bucketStore = BucketStore()
 
@@ -124,13 +124,19 @@ let other = ref({
 const myRef = ref(null);
 
 const notifications = ref([
-  { id: 1, message: "【桶世界通知】欢迎使用桶世界分布式对象存储平台！请注意，我们已经更新了平台的安全性和性能。" },
-  { id: 2, message: "【桶世界通知】重要通知：即将进行系统维护，预计将于下周二的凌晨2点开始，为确保服务的稳定性，请提前做好相应的准备和调整。" },
-  { id: 3, message: "【桶世界通知】我们很高兴宣布，桶世界平台现在支持新的高级功能，包括自定义存储策略和数据复制选项。请查看文档以了解更多详情。" },
+  {id: 1, message: "【桶世界通知】欢迎使用桶世界分布式对象存储平台！请注意，我们已经更新了平台的安全性和性能。"},
+  {
+    id: 2,
+    message: "【桶世界通知】重要通知：即将进行系统维护，预计将于下周二的凌晨2点开始，为确保服务的稳定性，请提前做好相应的准备和调整。"
+  },
+  {
+    id: 3,
+    message: "【桶世界通知】我们很高兴宣布，桶世界平台现在支持新的高级功能，包括自定义存储策略和数据复制选项。请查看文档以了解更多详情。"
+  },
 
 ]);
 
-const initT = ( imagesSize, imagesSizeNum,  videosSize, videosSizeNum,  docSize, docSizeNum,  othSize, othSizeNum) => {
+const initT = (imagesSize, imagesSizeNum, videosSize, videosSizeNum, docSize, docSizeNum, othSize, othSizeNum) => {
   if (myRef.value) {
     //@ts-ignore
     const myChart = echarts.init(myRef.value);
