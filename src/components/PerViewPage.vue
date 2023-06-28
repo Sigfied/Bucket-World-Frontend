@@ -1,5 +1,5 @@
 <template>
-  <el-button style="margin-left: 10%" @click="preview()">点我预览</el-button>
+<!--  <el-button style="margin-left: 10%" @click="preview()">点我预览</el-button>-->
   <el-row class="show-file" style="margin-left: 10%; margin-right: 3% ;width: 87%;height: 100%">
 
     <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>
@@ -27,12 +27,45 @@
 </template>
 <script lang="ts" setup>
 //控制文件展示
-import {Ref, ref} from "vue";
+import {onBeforeMount, Ref, ref, watch} from "vue";
 import axios, {AxiosResponse} from "axios";
 import {ElMessage} from "element-plus";
 import {defaultOptions, renderAsync} from "docx-preview";
 import * as XLSX from 'xlsx';
 import {saveAs} from 'file-saver'
+
+
+const props = defineProps({
+  documentId: {
+    required: true
+  },
+  documentName:{
+    required:true
+  }
+});
+
+onBeforeMount(() => {
+  console.log(props.documentId,props.documentName)
+  // 当 documentId 值改变时执行的逻辑
+  preview({
+    params: {
+      documentId: props.documentId
+    }
+  })
+});
+
+// watch(() => props.documentId, (newValue, oldValue) => {
+//   console.log(props.documentId,props.documentName)
+//   // 当 documentId 值改变时执行的逻辑
+//   preview({
+//     params: {
+//       documentId: props.documentId
+//     }
+//   })
+//
+//   // 在这里可以调用其他函数或执行其他操作
+// });
+
 
 interface IfShowFile {
   video: boolean
@@ -56,13 +89,11 @@ const ifShowFile = ref<IfShowFile>({
   docx: false,
 })
 
-const postData = {
-  documentId: 23
-};
+
 
 function preview(data) {
-  let temp = getFile2("/api/download",postData)
-  ifShowFile.value.img = true;
+  let temp = getFile2("/api/download",data)
+  // ifShowFile.value.img = true;
 }
 
 let fileBlob;
@@ -153,9 +184,9 @@ function getFile2(url: string,data: any) {
     responseType: "blob",
 
   });
-  return fileApi.post(url,data)
+  return fileApi.get(url,data)
       .then(response => {
-        const contentDisposition = response.headers['filename'];
+        const contentDisposition = props.documentName;
         let type = getFileFormat(contentDisposition);
         showPage(type);
         console.log(type)

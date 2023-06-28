@@ -46,7 +46,7 @@
           </el-col>
           <!--    这是右边-->
           <el-col :span="19" style="padding-left: 1% ; ">
-            <PerViewPage></PerViewPage>
+
             <el-row>
               <el-button :icon="ArrowLeft" size="small" @click="back"/>
               <el-breadcrumb :separator-icon="ArrowRight" style="margin-top: 5px ; margin-left: 10px">
@@ -54,16 +54,16 @@
                 <el-breadcrumb-item v-for="(file,index) in  fileNavList">{{ file }}</el-breadcrumb-item>
               </el-breadcrumb>
             </el-row>
-            <el-row class="top-padding">
+            <el-row class="top-padding" >
               <el-table
-                  v-if="ifShowFile.table"
+                  v-if="showTable == 1"
                   :data="fileShowList"
                   :row-style="{height:'80px'}" style="width: 93%"
               >
-                <el-table-column label="文件名称" prop="name" width="400">
+                <el-table-column label="文件名称" prop="name" width="400" >
                   <template #default="scope">
                     <span :class="scope.row.icon" class="icon iconfont"></span>
-                    <span class="table-title" @click="handleTableRow(scope.row,' ')">{{ scope.row.name }}</span>
+                    <span class="table-title" @click="perView(scope.row)">{{ scope.row.name }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="类型" prop="type">
@@ -111,14 +111,18 @@
                   </template>
                 </el-table-column>
               </el-table>
+            </el-row  >
+<!--            <el-row class="show-file">-->
+            <el-row>
+              <PerViewPage  :documentId= "documentId" :documentName="documentName" v-if="showTable == 0"  ></PerViewPage>
+
             </el-row>
-            <el-row class="show-file">
-              <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>
-              <iframe v-if="ifShowFile.pdf" :src="fileUrl" height="500px" width="100%"></iframe>
-              <img v-if="ifShowFile.img" :src="fileUrl" alt="图片">
-              <audio v-if="ifShowFile.music" :src="fileUrl" controls></audio>
-              <p v-if="ifShowFile.txt"> {{ txt }}</p>
-            </el-row>
+<!--              <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>-->
+<!--              <iframe v-if="ifShowFile.pdf" :src="fileUrl" height="500px" width="100%"></iframe>-->
+<!--              <img v-if="ifShowFile.img" :src="fileUrl" alt="图片">-->
+<!--              <audio v-if="ifShowFile.music" :src="fileUrl" controls></audio>-->
+<!--              <p v-if="ifShowFile.txt"> {{ txt }}</p>-->
+<!--            </el-row>-->
 
           </el-col>
         </el-row>
@@ -138,6 +142,10 @@ import {Bucket, getBucketList} from "../api/bucket.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
 import {get} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
+import {useRouter} from "vue-router";
+let documentId = ref(0);
+let documentName = ref("");
+let showTable = ref(1);
 
 //
 //右边
@@ -231,16 +239,29 @@ onMounted(() => {
 
 // 处理按钮点击事件
 const checkBucket = async (index: number) => {
+  showTable.value = 1;
   if (activeIndex.value === index) {
     activeIndex.value = -1;
   } else {
     activeIndex.value = index;
-    console.log( bucketList.value[index].id)
-    const response = await get('/document/list/'+bucketList.value[index].id ,{} );
+    console.log(bucketList.value[index].id)
+    // documentId.value = bucketList.value[index].id
+    const response = await get('/document/list/' + bucketList.value[index].id, {});
     console.log(response);
     fileShowList.value = response.data;
 
   }
+}
+
+const  perView = (data: any)=>  {
+
+  showTable.value = 0;
+    documentId.value = data.id
+  documentName.value = data.name
+  console.log(documentId.value,documentName.value)
+
+
+}
 
 // };
 
@@ -367,7 +388,7 @@ function showFile(data, type: string) {
           console.error("请求失败:", error);
         });
   }
-}
+
 
 
 }
