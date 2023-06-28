@@ -233,8 +233,7 @@ const initT = ( imagesSize, imagesSizeNum,  videosSize, videosSizeNum,  docSize,
 // }
 onMounted(async () => {
   const res = await get('/bucket/all/' + '1673579293235965953', {});
-  console.log(res);
-  console.log("??");
+
   initT(res.data.IMAGE.num, res.data.IMAGE.totalSize, res.data.VIDEO.num, res.data.VIDEO.totalSize, res.data.DOCUMENT.num, res.data.DOCUMENT.totalSize, res.data.OTHER.num, res.data.OTHER.totalSize);
   res.data.DOCUMENT.totalSize = convertFileSize(res.data.DOCUMENT.totalSize);
   res.data.VIDEO.totalSize = convertFileSize(res.data.VIDEO.totalSize);
