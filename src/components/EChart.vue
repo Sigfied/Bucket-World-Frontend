@@ -97,8 +97,9 @@
 import {onMounted, ref} from "vue";
 import * as echarts from "echarts";
 import DownloadAndUpload from "./DownloadAndUpload.vue";
-import {All} from "../api/bucket.ts";
 import {BucketStore} from "../store/bucket.ts";
+import {get} from "../api/user.js";
+import { convertFileSize } from '../util/fileUtils.js';
 
 const bucketStore = BucketStore()
 
@@ -129,7 +130,7 @@ const notifications = ref([
 
 ]);
 
-const initT = (imagesSizeNum, imagesSize, videosSizeNum, videosSize, docSizeNum, docSize, othSizeNum, othSize) => {
+const initT = ( imagesSize, imagesSizeNum,  videosSize, videosSizeNum,  docSize, docSizeNum,  othSize, othSizeNum) => {
   if (myRef.value) {
     //@ts-ignore
     const myChart = echarts.init(myRef.value);
@@ -224,21 +225,31 @@ const initT = (imagesSizeNum, imagesSize, videosSizeNum, videosSize, docSizeNum,
     });
   }
 };
+// const getAllInfo = async () => {
+//   const response = await get('/organization/page', {id:'1673579293235965953', page: 1, pageSize: 3});
+//   console.log(response.data.records);
+//   tableData.value = response.data.records;
+//   console.log(tableData);
+// }
 onMounted(async () => {
-
-  let res = await All();
+  const res = await get('/bucket/all/' + '1673579293235965953', {});
   console.log(res);
-  doc.value.num = res.docNum;
-  doc.value.size = res.docSize;
-  img.value.num = res.imagesNum;
-  img.value.size = res.imagesSize;
-  video.value.num = res.videosNum;
-  video.value.size = res.videosSize;
-  other.value.num = res.othNum;
-  other.value.size = res.othSize;
-  bucketStore.allResult = res
+  console.log("??");
+  initT(res.data.IMAGE.num, res.data.IMAGE.totalSize, res.data.VIDEO.num, res.data.VIDEO.totalSize, res.data.DOCUMENT.num, res.data.DOCUMENT.totalSize, res.data.OTHER.num, res.data.OTHER.totalSize);
+  res.data.DOCUMENT.totalSize = convertFileSize(res.data.DOCUMENT.totalSize);
+  res.data.VIDEO.totalSize = convertFileSize(res.data.VIDEO.totalSize);
+  res.data.IMAGE.totalSize = convertFileSize(res.data.IMAGE.totalSize);
+  res.data.OTHER.totalSize = convertFileSize(res.data.OTHER.totalSize);
+  doc.value.num = res.data.DOCUMENT.num;
+  doc.value.size = res.data.DOCUMENT.totalSize;
+  img.value.num = res.data.IMAGE.num;
+  img.value.size = res.data.IMAGE.totalSize;
+  video.value.num = res.data.VIDEO.num;
+  video.value.size = res.data.VIDEO.totalSize;
+  other.value.num = res.data.OTHER.num;
+  other.value.size = res.data.OTHER.totalSize;
 
-  initT(res.imagesSizeNum, res.imagesSize, res.videosSizeNum, res.videosSize, res.docSizeNum, res.docSize, res.othSizeNum, res.othSize);
+
 });
 
 </script>

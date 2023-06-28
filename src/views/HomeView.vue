@@ -173,9 +173,15 @@ const getOrganizationList = async () => {
   tableData.value = response.data.records;
   console.log(tableData);
 }
-
+let allInfo = ref();
+const getAllInfo = async () => {
+  const response = await get('/bucket/all/' + '1673579293235965953', {});
+  console.log(response);
+  allInfo.value = response.data;
+}
 onMounted(() => {
-  getOrganizationList()
+  getOrganizationList();
+  getAllInfo();
 })
 </script>
 

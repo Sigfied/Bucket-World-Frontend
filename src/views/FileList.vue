@@ -77,22 +77,7 @@
                     <span>{{ scope.row.size }}</span>
                   </template>
                 </el-table-column>
-                <el-dialog v-model="dialogVisible" title="提示" >
-                  <el-form-item label="分享至" >
-                    <el-select v-model="value" class="m-2" placeholder="Select">
-                      <el-option
-                          v-for="item in options"
-                          :key="item.id"
-                          :label="item.name"
-                          :value="item.id"
-                      />
-                    </el-select>
-                  </el-form-item>
-                  <template #footer>
-                    <el-dropdown-item @click="handleConfirm">确定</el-dropdown-item>
-                    <el-dropdown-item @click="handleCancel">取消</el-dropdown-item>
-                  </template>
-                </el-dialog>
+
                 <el-table-column width="80">
                   <template #default="scope">
                     <el-dropdown trigger="click">
@@ -104,7 +89,22 @@
                             <span class="icon iconfont icon-a-fenxiang2"></span>
                             <span>分享</span>
                           </el-dropdown-item>
-
+                          <el-dialog v-model="dialogVisible" title="提示" >
+                            <el-form-item label="分享至" >
+                              <el-select v-model="value" class="m-2" placeholder="Select">
+                                <el-option
+                                    v-for="item in options"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
+                                />
+                              </el-select>
+                            </el-form-item>
+                            <template #footer>
+                              <el-dropdown-item @click="handleConfirm">确定</el-dropdown-item>
+                              <el-dropdown-item @click="handleCancel">取消</el-dropdown-item>
+                            </template>
+                          </el-dialog>
                           <el-dropdown-item>
                             <span class="icon iconfont icon-xiazai"></span>
                             <span>下载</span>
@@ -176,8 +176,8 @@ const handleShare = (row) => {
 
 const getOrganizationList = async () => {
   const response = await get('/organization/list/' + '1673579293235965953', {});
-  console.log(response.data.records);
-  options.value = response.data.records;
+  console.log(response.data);
+  options.value = response.data;
 }
 onMounted(() => {
   getOrganizationList()
