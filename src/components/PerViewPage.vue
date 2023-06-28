@@ -56,8 +56,12 @@ const ifShowFile = ref<IfShowFile>({
   docx: false,
 })
 
-function preview() {
-  let temp = getFile2("/downloadFile")
+const postData = {
+  documentId: 23
+};
+
+function preview(data) {
+  let temp = getFile2("/api/download",postData)
   ifShowFile.value.img = true;
 }
 
@@ -143,13 +147,13 @@ function chooseBlob(response: AxiosResponse<any>, type: string): Blob {
   return new Blob([response.data], {type: fileTypes.get(type)});
 }
 
-function getFile2(url: string) {
+function getFile2(url: string,data: any) {
   let fileApi = axios.create({
-    baseURL: "http://localhost:8848",
+    baseURL: "http://localhost:9000",
     responseType: "blob",
-  });
 
-  return fileApi.get(url)
+  });
+  return fileApi.post(url,data)
       .then(response => {
         const contentDisposition = response.headers['filename'];
         let type = getFileFormat(contentDisposition);
