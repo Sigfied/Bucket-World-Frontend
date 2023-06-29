@@ -150,11 +150,11 @@ import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
 import {getExtensionFromFileName, joinStrings, joinStrings1} from "../api/utils.ts";
-import {get,post, getDownloadFile} from "../api/user.js";
+import {get,post, getDownloadFile,} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import Bus from "../components/GlobalUploader/utils/bus.js";
 import {AxiosResponse} from "axios/index";
-import {convertFileSize} from '../util/Utils.js';
+import {convertFileSize,  matchIcon} from '../util/Utils.js';
 
 let documentId = ref(0);
 let documentName = ref("");
@@ -387,6 +387,7 @@ const checkBucket = async (index: number) => {
     console.log(response.data);
     for(let i = 0; i < response.data.length; i ++ ){
       response.data[i].size =  convertFileSize(response.data[i].size);
+      response.data[i].icon =  matchIcon(response.data[i].type);
     }
     console.log(response);
     fileShowList.value = response.data;

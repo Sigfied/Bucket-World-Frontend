@@ -28,7 +28,7 @@
           <el-table :data="tableData" :row-style="{height:'80px'}" style="width: 100%;height: 520px">
             <el-table-column label="文件名称" prop="document.name" sortable width="300">
               <template #default="scope">
-<!--                <span :class="scope.row.icon" class="icon iconfont"></span>-->
+                <span :class="scope.row.icon" class="icon iconfont"></span>
                 <span class="table-title">{{ scope.row.document.name }}</span>
               </template>
             </el-table-column>
@@ -86,7 +86,7 @@
 import {onMounted, ref} from 'vue'
 import FileInfo from "../components/FileInfo.vue";
 import {get} from "../api/user.js";
-import {convertFileSize, formatDateTime} from '../util/Utils.js';
+import {convertFileSize, formatDateTime, matchIcon} from '../util/Utils.js';
 
 const searchInput = ref('');
 
@@ -96,6 +96,7 @@ const getFileList = async () => {
 
   for(let i = 0; i < response.data.records.length; i ++ ){
     response.data.records[i].updateTime =  formatDateTime(response.data.records[i].updateTime);
+    response.data.records[i].icon = matchIcon(response.data.records[i].document.type);
   }
   tableData.value = response.data.records;
   console.log(response)
