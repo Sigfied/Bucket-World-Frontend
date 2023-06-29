@@ -53,6 +53,7 @@
                 <el-breadcrumb-item>开始</el-breadcrumb-item>
                 <el-breadcrumb-item v-for="(file,index) in  fileNavList">{{ file }}</el-breadcrumb-item>
               </el-breadcrumb>
+
             </el-row>
             <div class="scroll-container" v-if="showTable == 1">
               <el-row class="top-padding">
@@ -91,7 +92,7 @@
                               <span>分享</span>
                             </el-dropdown-item>
 
-                            <el-dropdown-item>
+                            <el-dropdown-item @click="handleDownload(scope.row)">
                               <span class="icon iconfont icon-xiazai"></span>
                               <span>下载</span>
                             </el-dropdown-item>
@@ -115,8 +116,6 @@
                 </el-table>
               </el-row>
             </div>
-
-            <!--            <el-row class="show-file">-->
             <el-row>
               <PerViewPage v-if="showTable == 0" :documentId="documentId" :documentName="documentName"></PerViewPage>
 
@@ -150,37 +149,42 @@ import {onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
-import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
-import {get} from "../api/user.js";
+import {getExtensionFromFileName, joinStrings, joinStrings1} from "../api/utils.ts";
+import {get,post, getDownloadFile} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import Bus from "../components/GlobalUploader/utils/bus.js";
-
+import {AxiosResponse} from "axios/index";
+import {convertFileSize} from '../util/fileUtils.js';
 
 let documentId = ref(0);
 let documentName = ref("");
 let showTable = ref(1);
 let dialogVisible = ref(false);
 const value = ref('');
+const file = ref('');
 const options = ref();
 
 
 const handleShare = (row) => {
   console.log("分享文件:", row.name);
+  file.value = row.id;
   // 显示带下拉菜单的弹窗
   dialogVisible.value = true;
 }
 
+
 const getOrganizationList = async () => {
   const response = await get('/organization/list/' + '1673579293235965953', {});
-  console.log(response.data);
+
   options.value = response.data;
 }
 onMounted(() => {
   getOrganizationList()
 })
 
-const handleConfirm = () => {
-  console.log("点击了确定");
+const handleConfirm = async () => {
+  console.log(value.value);
+  const response = await post('/organizationDocument', {documentId:file.value, organizationId:value.value, accountId:'1673579293235965953'});
   dialogVisible.value = false;
 };
 
@@ -188,6 +192,67 @@ const handleCancel = () => {
   console.log("点击了取消");
   dialogVisible.value = false;
 };
+
+function chooseBlob(response: AxiosResponse<any>, type: string): Blob {
+  const fileTypes: Map<string, string> = new Map();
+  {
+    fileTypes.set("png", "image/png");
+    fileTypes.set("jpg", "image/jpg");
+    fileTypes.set("pdf", "application/pdf");
+    fileTypes.set("mp4", "video/mp4");
+    fileTypes.set("mp3", "audio/mp3");
+    fileTypes.set("jpeg", "image/jpeg");
+    fileTypes.set("doc", "application/octet-stream");
+    fileTypes.set("docx", "application/pdf");
+    fileTypes.set("xls", "application/vnd.ms-excel");
+    fileTypes.set("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  }
+  return new Blob([response], {type: fileTypes.get(type)});
+}
+
+function getFileFormat(filename: string): string {
+  const parts = filename.split('.');
+  if (parts.length > 1) {
+    return parts[parts.length - 1];
+  } else {
+    return '';
+  }
+}
+
+const handleDownload = async (row) => {
+  console.log(row)
+  const response = await getDownloadFile('/api/download/' , { "documentId": row.id});
+  // console.log(response)
+  // const type = getFileFormat(row.name)
+  // console.log(type)
+  // const blob = chooseBlob(response,type);
+  // // let URL = window.URL || window.webkitURL;
+  // const url = URL.createObjectURL(blob);
+  // const link = document.createElement('a')
+  //
+  //
+  //
+  //
+  // link.style.display = 'none'
+  // link.href = url
+  // link.setAttribute('download', row.name)
+  // document.body.appendChild(link)
+  // link.click()
+  // document.body.removeChild(link)
+
+
+  const blob1 = new Blob([response]);
+  const blobUrl = window.URL.createObjectURL(blob1);
+  const a = document.createElement('a');
+  a.href = blobUrl;
+  a.download = row.name;
+  a.click();
+  window.URL.revokeObjectURL(blobUrl);
+
+}
+
+
+
 
 const upload = () => {
   // 打开文件选择框
@@ -319,6 +384,10 @@ const checkBucket = async (index: number) => {
     console.log(bucketList.value[index].id)
     // documentId.value = bucketList.value[index].id
     const response = await get('/document/list/' + bucketList.value[index].id, {});
+    console.log(response.data);
+    for(let i = 0; i < response.data.length; i ++ ){
+      response.data[i].size =  convertFileSize(response.data[i].size);
+    }
     console.log(response);
     fileShowList.value = response.data;
 
