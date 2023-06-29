@@ -151,7 +151,7 @@ import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
-import {get, post} from "../api/user.js";
+import {get} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import Bus from "../components/GlobalUploader/utils/bus.js";
 
@@ -161,13 +161,11 @@ let documentName = ref("");
 let showTable = ref(1);
 let dialogVisible = ref(false);
 const value = ref('');
-const file = ref('');
 const options = ref();
 
 
 const handleShare = (row) => {
   console.log("分享文件:", row.name);
-  file.value = row.id;
   // 显示带下拉菜单的弹窗
   dialogVisible.value = true;
 }
@@ -181,9 +179,8 @@ onMounted(() => {
   getOrganizationList()
 })
 
-const handleConfirm = async () => {
-  console.log(value.value);
-  const response = await post('/organizationDocument', {documentId:file.value, organizationId:value.value, accountId:'1673579293235965953'});
+const handleConfirm = () => {
+  console.log("点击了确定");
   dialogVisible.value = false;
 };
 
