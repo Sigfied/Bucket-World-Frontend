@@ -52,8 +52,7 @@
               <el-breadcrumb :separator-icon="ArrowRight" style="margin-top: 5px ; margin-left: 10px">
                 <el-breadcrumb-item>开始</el-breadcrumb-item>
                 <el-breadcrumb-item v-for="(file,index) in  fileNavList">{{ file }}</el-breadcrumb-item>
-              </el-breadcrumb>
-              <a href="http://localhost:9000/api/download?documentId=25" download="asdfs.docx">点击下载文件</a>
+              </el-breadcrumb>1
 
             </el-row>
             <div class="scroll-container" v-if="showTable == 1">
