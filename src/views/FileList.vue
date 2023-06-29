@@ -89,22 +89,7 @@
                             <span class="icon iconfont icon-a-fenxiang2"></span>
                             <span>分享</span>
                           </el-dropdown-item>
-                          <el-dialog v-model="dialogVisible" title="提示">
-                            <el-form-item label="分享至">
-                              <el-select v-model="value" class="m-2" placeholder="Select">
-                                <el-option
-                                    v-for="item in options"
-                                    :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id"
-                                />
-                              </el-select>
-                            </el-form-item>
-                            <template #footer>
-                              <el-dropdown-item @click="handleConfirm">确定</el-dropdown-item>
-                              <el-dropdown-item @click="handleCancel">取消</el-dropdown-item>
-                            </template>
-                          </el-dialog>
+
                           <el-dropdown-item>
                             <span class="icon iconfont icon-xiazai"></span>
                             <span>下载</span>
@@ -144,8 +129,23 @@
         </el-row>
       </div>
     </el-col>
+    <el-dialog v-model="dialogVisible" title="提示">
+      <el-form-item label="分享至">
+        <el-select v-model="value" class="m-2" placeholder="Select">
+          <el-option
+              v-for="item in options"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+          />
+        </el-select>
+      </el-form-item>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleCancel">取 消</el-button>
+        <el-button type="primary" @click="handleConfirm">确 定</el-button>
+      </span>
+    </el-dialog>
   </el-row>
-
 
 </template>
 
