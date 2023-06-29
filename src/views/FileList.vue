@@ -54,77 +54,73 @@
                 <el-breadcrumb-item v-for="(file,index) in  fileNavList">{{ file }}</el-breadcrumb-item>
               </el-breadcrumb>
             </el-row>
-            <el-row class="top-padding">
-              <el-table
-                  v-if="showTable == 1"
-                  :data="fileShowList"
-                  :row-style="{height:'80px'}" style="width: 93%"
-              >
-                <el-table-column label="文件名称" prop="name" width="400">
-                  <template #default="scope">
-                    <span :class="scope.row.icon" class="icon iconfont"></span>
-                    <span class="table-title" @click="perView(scope.row)">{{ scope.row.name }}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column label="类型" prop="type">
-                  <template #default="scope">
-                    <span>{{ scope.row.type }}</span>
-                  </template>
-                </el-table-column>
+            <div class="scroll-container" v-if="showTable == 1">
+              <el-row class="top-padding">
+                <el-table
 
-                <el-table-column label="大小">
-                  <template #default="scope">
-                    <span>{{ scope.row.size }}</span>
-                  </template>
-                </el-table-column>
+                    :data="fileShowList"
+                    :row-style="{height:'80px'}" style="width: 93%"
+                >
+                  <el-table-column label="文件名称" prop="name" width="400">
+                    <template #default="scope">
+                      <span :class="scope.row.icon" class="icon iconfont"></span>
+                      <span class="table-title" @click="perView(scope.row)">{{ scope.row.name }}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="类型" prop="type">
+                    <template #default="scope">
+                      <span>{{ scope.row.type }}</span>
+                    </template>
+                  </el-table-column>
 
-                <el-table-column width="80">
-                  <template #default="scope">
-                    <el-dropdown trigger="click">
+                  <el-table-column label="大小">
+                    <template #default="scope">
+                      <span>{{ scope.row.size }}</span>
+                    </template>
+                  </el-table-column>
+
+                  <el-table-column width="80">
+                    <template #default="scope">
+                      <el-dropdown trigger="click">
                       <span class="iconfont icon-sangedian-copy">
                       </span>
-                      <template #dropdown>
-                        <el-dropdown-menu>
-                          <el-dropdown-item @click="handleShare(scope.row)">
-                            <span class="icon iconfont icon-a-fenxiang2"></span>
-                            <span>分享</span>
-                          </el-dropdown-item>
+                        <template #dropdown>
+                          <el-dropdown-menu>
+                            <el-dropdown-item @click="handleShare(scope.row)">
+                              <span class="icon iconfont icon-a-fenxiang2"></span>
+                              <span>分享</span>
+                            </el-dropdown-item>
 
-                          <el-dropdown-item>
-                            <span class="icon iconfont icon-xiazai"></span>
-                            <span>下载</span>
-                          </el-dropdown-item>
-                          <el-dropdown-item>
-                            <span class="icon iconfont icon-icon-"></span>
-                            <span>移动</span>
-                          </el-dropdown-item>
-                          <el-dropdown-item>
-                            <span class="icon iconfont icon-fuzhi-01"></span>
-                            <span>复制</span>
-                          </el-dropdown-item>
-                          <el-dropdown-item>
-                            <span class="icon iconfont icon-shanchu"></span>
-                            <span>删除</span>
-                          </el-dropdown-item>
-                        </el-dropdown-menu>
-                      </template>
-                    </el-dropdown>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-row>
+                            <el-dropdown-item>
+                              <span class="icon iconfont icon-xiazai"></span>
+                              <span>下载</span>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                              <span class="icon iconfont icon-icon-"></span>
+                              <span>移动</span>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                              <span class="icon iconfont icon-fuzhi-01"></span>
+                              <span>复制</span>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                              <span class="icon iconfont icon-shanchu"></span>
+                              <span>删除</span>
+                            </el-dropdown-item>
+                          </el-dropdown-menu>
+                        </template>
+                      </el-dropdown>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-row>
+            </div>
+
             <!--            <el-row class="show-file">-->
             <el-row>
               <PerViewPage v-if="showTable == 0" :documentId="documentId" :documentName="documentName"></PerViewPage>
 
             </el-row>
-            <!--              <video v-if="ifShowFile.video" :src="fileUrl" controls style="width: 100%"></video>-->
-            <!--              <iframe v-if="ifShowFile.pdf" :src="fileUrl" height="500px" width="100%"></iframe>-->
-            <!--              <img v-if="ifShowFile.img" :src="fileUrl" alt="图片">-->
-            <!--              <audio v-if="ifShowFile.music" :src="fileUrl" controls></audio>-->
-            <!--              <p v-if="ifShowFile.txt"> {{ txt }}</p>-->
-            <!--            </el-row>-->
-
           </el-col>
         </el-row>
       </div>
@@ -473,6 +469,12 @@ function showFile(data, type: string) {
 </script>
 
 <style scoped>
+
+.scroll-container {
+  height: 600px; /* 设置容器的高度 */
+  overflow-y: auto; /* 在垂直方向上显示滚动条，当内容超过容器高度时显示滚动条 */
+}
+
 .button-group {
   display: flex;
   justify-content: center;
