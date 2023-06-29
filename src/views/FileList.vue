@@ -185,6 +185,7 @@ onMounted(() => {
 
 const handleConfirm = () => {
   console.log("点击了确定");
+  console.log(options.value);
   dialogVisible.value = false;
 };
 

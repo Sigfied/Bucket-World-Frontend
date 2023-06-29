@@ -1,11 +1,16 @@
 <template>
-  <el-row class="app-container">
+  <el-row class="app-container" v-if="user == null">
+    <el-col :span="24" class="right-contain">
+      <LoginView></LoginView>
+    </el-col>
+  </el-row>
+
+  <el-row class="app-container" v-if="user != null">
     <el-col :span="3" class="left-bar">
       <Menu></Menu>
     </el-col>
     <el-col :span="21" class="right-contain">
-      <router-view/>
-
+      <router-view></router-view>
     </el-col>
   </el-row>
   <!-- 将上传组件全局注册 -->
@@ -14,6 +19,21 @@
 <script lang="ts" setup>
 import Menu from "./components/Menu.vue";
 import GlobalUploader from "./components/GlobalUploader/GlobalUploader.vue";
+import LoginView from "./views/LoginView.vue";
+import {useStore} from "vuex";
+import {watch} from "vue";
+import {ref} from "vue";
+
+const store = useStore();
+let user = ref(store.getters.getUserData);
+
+watch(
+    () => store.getters.getUserData,
+    (newTaskList) => {
+      user.value = newTaskList;
+      console.log(user.value);
+    }
+);
 </script>
 
 <style>

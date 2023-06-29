@@ -130,7 +130,7 @@ export default {
       waiting: '等待上传'
     }
     const customStatus = ref('')
-    const panelShow = ref(true)
+    const panelShow = ref(false)
     const collapse = ref(false)
     const uploaderRef = ref()
     const uploadBtnRef = ref()
