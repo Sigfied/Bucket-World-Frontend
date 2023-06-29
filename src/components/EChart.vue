@@ -87,16 +87,15 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-row>
-      <DownloadAndUpload></DownloadAndUpload>
-    </el-row>
+    <!--    <el-row>-->
+    <!--      <DownloadAndUpload></DownloadAndUpload>-->
+    <!--    </el-row>-->
   </div>
 </template>
 
 <script lang="ts" setup>
 import {onMounted, ref} from "vue";
 import * as echarts from "echarts";
-import DownloadAndUpload from "./DownloadAndUpload.vue";
 import {BucketStore} from "../store/bucket.ts";
 import {get} from "../api/user.js";
 import {convertFileSize} from '../util/Utils.js';
@@ -325,7 +324,7 @@ onMounted(async () => {
 }
 
 .info-card {
-  margin-bottom: 7px;
+  margin-bottom: 27px;
   padding: 10px 5px 5px;
   background-color: #F9F8FF;
 }

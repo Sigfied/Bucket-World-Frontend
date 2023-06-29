@@ -55,7 +55,7 @@
               </el-breadcrumb>
 
             </el-row>
-            <div class="scroll-container" v-if="showTable == 1">
+            <div v-if="showTable == 1" class="scroll-container">
               <el-row class="top-padding">
                 <el-table
 
@@ -150,11 +150,11 @@ import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
 import {getExtensionFromFileName, joinStrings, joinStrings1} from "../api/utils.ts";
-import {get,post, getDownloadFile,} from "../api/user.js";
+import {get, getDownloadFile, post,} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import Bus from "../components/GlobalUploader/utils/bus.js";
 import {AxiosResponse} from "axios/index";
-import {convertFileSize,  matchIcon} from '../util/Utils.js';
+import {convertFileSize, matchIcon} from '../util/Utils.js';
 
 let documentId = ref(0);
 let documentName = ref("");
@@ -184,7 +184,11 @@ onMounted(() => {
 
 const handleConfirm = async () => {
   console.log(value.value);
-  const response = await post('/organizationDocument', {documentId:file.value, organizationId:value.value, accountId:'1673579293235965953'});
+  const response = await post('/organizationDocument', {
+    documentId: file.value,
+    organizationId: value.value,
+    accountId: '1673579293235965953'
+  });
   dialogVisible.value = false;
 };
 
@@ -221,7 +225,7 @@ function getFileFormat(filename: string): string {
 
 const handleDownload = async (row) => {
   console.log(row)
-  const response = await getDownloadFile('/api/download/' , { "documentId": row.id});
+  const response = await getDownloadFile('/api/download/', {"documentId": row.id});
   // console.log(response)
   // const type = getFileFormat(row.name)
   // console.log(type)
@@ -250,8 +254,6 @@ const handleDownload = async (row) => {
   window.URL.revokeObjectURL(blobUrl);
 
 }
-
-
 
 
 const upload = () => {
@@ -385,9 +387,9 @@ const checkBucket = async (index: number) => {
     // documentId.value = bucketList.value[index].id
     const response = await get('/document/list/' + bucketList.value[index].id, {});
     console.log(response.data);
-    for(let i = 0; i < response.data.length; i ++ ){
-      response.data[i].size =  convertFileSize(response.data[i].size);
-      response.data[i].icon =  matchIcon(response.data[i].type);
+    for (let i = 0; i < response.data.length; i++) {
+      response.data[i].size = convertFileSize(response.data[i].size);
+      response.data[i].icon = matchIcon(response.data[i].type);
     }
     console.log(response);
     fileShowList.value = response.data;

@@ -86,7 +86,7 @@
 import {onMounted, ref} from 'vue'
 import FileInfo from "../components/FileInfo.vue";
 import {get} from "../api/user.js";
-import {convertFileSize, formatDateTime, matchIcon} from '../util/Utils.js';
+import {formatDateTime, matchIcon} from '../util/Utils.js';
 
 const searchInput = ref('');
 
@@ -94,8 +94,8 @@ const tableData = ref();
 const getFileList = async () => {
   const response = await get('/organizationDocument/page', {page: 1, pageSize: 10, id: '1674290921510223874'});
 
-  for(let i = 0; i < response.data.records.length; i ++ ){
-    response.data.records[i].updateTime =  formatDateTime(response.data.records[i].updateTime);
+  for (let i = 0; i < response.data.records.length; i++) {
+    response.data.records[i].updateTime = formatDateTime(response.data.records[i].updateTime);
     response.data.records[i].icon = matchIcon(response.data.records[i].document.type);
   }
   tableData.value = response.data.records;

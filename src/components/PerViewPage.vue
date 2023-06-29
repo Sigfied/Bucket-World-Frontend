@@ -31,13 +31,11 @@
 </template>
 <script lang="ts" setup>
 //控制文件展示
-import {onBeforeMount, Ref, ref, watch} from "vue";
+import {onBeforeMount, Ref, ref} from "vue";
 import axios, {AxiosResponse} from "axios";
 import {ElMessage} from "element-plus";
-import {defaultOptions, renderAsync} from "docx-preview";
 import * as XLSX from 'xlsx';
 import mammoth from "mammoth";
-import {saveAs} from 'file-saver'
 
 
 const props = defineProps({

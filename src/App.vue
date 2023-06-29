@@ -1,11 +1,11 @@
 <template>
-  <el-row class="app-container" v-if="user == null">
+  <el-row v-if="user == null" class="app-container">
     <el-col :span="24" class="right-contain">
       <LoginView></LoginView>
     </el-col>
   </el-row>
 
-  <el-row class="app-container" v-if="user != null">
+  <el-row v-if="user != null" class="app-container">
     <el-col :span="3" class="left-bar">
       <Menu></Menu>
     </el-col>
@@ -21,8 +21,7 @@ import Menu from "./components/Menu.vue";
 import GlobalUploader from "./components/GlobalUploader/GlobalUploader.vue";
 import LoginView from "./views/LoginView.vue";
 import {useStore} from "vuex";
-import {watch} from "vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
 const store = useStore();
 let user = ref(store.getters.getUserData);

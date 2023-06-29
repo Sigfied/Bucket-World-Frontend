@@ -9,7 +9,7 @@
       <div class="iconfont icon-wenjianjia icon-file-logo"></div>
       <div class="file-info-wrapper">
         <div class="file-name">桶世界小组</div>
-        <div class="file-detail">4 文件 - 46.56MB</div>
+        <div class="file-detail">4 文件 - 16.56MB</div>
       </div>
     </el-row>
 
@@ -27,7 +27,7 @@
           >
             <div class="activity-info">
               <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis">{{ data.name }}
-                upload {{ data.files.length }} files
+                上传 {{ data.files.length }} 个文件
               </div>
               <div class="upload-time"
                    style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis">{{ data.time }}
@@ -63,105 +63,25 @@ onMounted(() => {
 
 const uploadData = [
   {
-    name: 'John',
-    time: '2 min ago',
+    name: '邓威远',
+    time: '2分钟 前',
     color: '#ffa760',
     files: [
       {
         icon: 'icon-MP4'
       },
       {
-        icon: 'icon-jpg-1'
-      },
-      {
-        icon: 'icon-DOCX'
-      },
-      {
         icon: 'icon-ZIP'
-      },
-    ],
-  },
-  {
-    name: 'Marry',
-    time: '2 min ago',
-    files: [
-      {
-        icon: 'icon-DOCX'
-      },
-      {
-        icon: 'icon-XLS'
-      },
-      {
-        icon: 'icon-PDF'
-      },
-    ],
-  },
-  {
-    name: 'May',
-    time: '2 min ago',
-    files: [
-      {
-        icon: 'icon-PDF'
-      },
-      {
-        icon: 'icon-PPT'
-      },
-      {
-        icon: 'icon-MP4'
-      },
-      {
-        icon: 'icon-PDF'
-      },
-    ],
-  },
-  {
-    name: 'Marque',
-    time: '2 min ago',
-    files: [
-      {
-        icon: 'icon-ZIP'
-      },
-      {
-        icon: 'icon-xiazai-1'
-      },
-      {
-        icon: 'icon-MP4'
-      },
-      {
-        icon: 'icon-pdf-1'
-      },
-    ],
-  },
-  {
-    name: 'Hardik',
-    time: '2 min ago',
-    files: [
-      {
-        icon: 'icon-XLS'
-      },
-      {
-        icon: 'icon-PDF'
-      },
-      {
-        icon: 'icon-PPT'
-      },
-    ],
-  },
-  {
-    name: 'Richard',
-    time: '2 min ago',
-    files: [
-      {
-        icon: 'icon-JAVA'
-      },
-      {
-        icon: 'icon-MP4'
       },
       {
         icon: 'icon-MP3'
       },
+      {
+        icon: 'icon-png-1'
+      },
     ],
   },
+
 ]
 </script>
 

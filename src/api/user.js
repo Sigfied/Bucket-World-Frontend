@@ -41,12 +41,12 @@ export async function get(url, data) {
         });
 }
 
-export async function getDownloadFile(url,data){
+export async function getDownloadFile(url, data) {
     return axios.create({
         // 根据您的实际情况设置baseURL
         baseURL: "http://localhost:9000/",
         responseType: "blob",
-    }).get(url,{
+    }).get(url, {
         params: data
     })
         .then(response => {

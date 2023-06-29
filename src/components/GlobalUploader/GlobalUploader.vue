@@ -69,7 +69,7 @@
  *
  *   2. 作为普通组件在单个页面中调用，使用props
  */
-import {ref, watch, computed, nextTick, onMounted} from 'vue'
+import {computed, nextTick, onMounted, ref, watch} from 'vue'
 import {mergeSimpleUpload} from '~/api/index.js'
 import {generateMD5} from './utils/md5'
 import Bus from './utils/bus'

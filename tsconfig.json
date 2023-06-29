@@ -8,6 +8,8 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "allowJs": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     /* Bundler mode */
     "moduleResolution": "bundler",
