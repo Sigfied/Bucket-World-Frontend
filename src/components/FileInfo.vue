@@ -8,8 +8,8 @@
     <el-row class="file-wrapper">
       <div class="iconfont icon-wenjianjia icon-file-logo"></div>
       <div class="file-info-wrapper">
-        <div class="file-name">Wireframes Project A</div>
-        <div class="file-detail">234 Files Inside - 1.56GB</div>
+        <div class="file-name">桶世界小组</div>
+        <div class="file-detail">4 文件 - 46.56MB</div>
       </div>
     </el-row>
 
