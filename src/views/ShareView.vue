@@ -99,6 +99,7 @@ const getFileList = async () => {
   }
   tableData.value = response.data.records;
   console.log(response)
+  console.log(111)
 }
 onMounted(() => {
   getFileList()
