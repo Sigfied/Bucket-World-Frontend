@@ -53,6 +53,8 @@
                 <el-breadcrumb-item>开始</el-breadcrumb-item>
                 <el-breadcrumb-item v-for="(file,index) in  fileNavList">{{ file }}</el-breadcrumb-item>
               </el-breadcrumb>
+              <a href="http://localhost:9000/api/download?documentId=25" download="asdfs.docx">点击下载文件</a>
+
             </el-row>
             <div class="scroll-container" v-if="showTable == 1">
               <el-row class="top-padding">
@@ -91,7 +93,7 @@
                               <span>分享</span>
                             </el-dropdown-item>
 
-                            <el-dropdown-item>
+                            <el-dropdown-item @click="handleDownload(scope.row)">
                               <span class="icon iconfont icon-xiazai"></span>
                               <span>下载</span>
                             </el-dropdown-item>
@@ -151,9 +153,10 @@ import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue";
 import {getFile} from "../api/api.ts";
 import {getFiles, getString} from "../api/objects.ts";
 import {getExtensionFromFileName, getObjectProperties, joinStrings, joinStrings1} from "../api/utils.ts";
-import {get} from "../api/user.js";
+import {get, getDownloadFile} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import Bus from "../components/GlobalUploader/utils/bus.js";
+import {AxiosResponse} from "axios/index";
 
 
 let documentId = ref(0);
@@ -169,6 +172,65 @@ const handleShare = (row) => {
   // 显示带下拉菜单的弹窗
   dialogVisible.value = true;
 }
+
+function chooseBlob(response: AxiosResponse<any>, type: string): Blob {
+  const fileTypes: Map<string, string> = new Map();
+  {
+    fileTypes.set("png", "image/png");
+    fileTypes.set("jpg", "image/jpg");
+    fileTypes.set("pdf", "application/pdf");
+    fileTypes.set("mp4", "video/mp4");
+    fileTypes.set("mp3", "audio/mp3");
+    fileTypes.set("jpeg", "image/jpeg");
+    fileTypes.set("doc", "application/octet-stream");
+    fileTypes.set("docx", "application/pdf");
+    fileTypes.set("xls", "application/vnd.ms-excel");
+    fileTypes.set("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  }
+  return new Blob([response], {type: fileTypes.get(type)});
+}
+
+function getFileFormat(filename: string): string {
+  const parts = filename.split('.');
+  if (parts.length > 1) {
+    return parts[parts.length - 1];
+  } else {
+    return '';
+  }
+}
+
+const handleDownload = async (row) => {
+  console.log(row)
+  const response = await getDownloadFile('/api/download/' , { "documentId": row.id});
+  // console.log(response)
+  // const type = getFileFormat(row.name)
+  // console.log(type)
+  // const blob = chooseBlob(response,type);
+  // // let URL = window.URL || window.webkitURL;
+  // const url = URL.createObjectURL(blob);
+  // const link = document.createElement('a')
+  //
+  //
+  //
+  //
+  // link.style.display = 'none'
+  // link.href = url
+  // link.setAttribute('download', row.name)
+  // document.body.appendChild(link)
+  // link.click()
+  // document.body.removeChild(link)
+
+
+  const blob1 = new Blob([response]);
+  const blobUrl = window.URL.createObjectURL(blob1);
+  const a = document.createElement('a');
+  a.href = blobUrl;
+  a.download = row.name;
+  a.click();
+  window.URL.revokeObjectURL(blobUrl);
+
+}
+
 
 const getOrganizationList = async () => {
   const response = await get('/organization/list/' + '1673579293235965953', {});
