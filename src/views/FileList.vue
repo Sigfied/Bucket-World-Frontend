@@ -154,7 +154,7 @@ import {get,post, getDownloadFile} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import Bus from "../components/GlobalUploader/utils/bus.js";
 import {AxiosResponse} from "axios/index";
-import {convertFileSize} from '../util/fileUtils.js';
+import {convertFileSize} from '../util/Utils.js';
 
 let documentId = ref(0);
 let documentName = ref("");

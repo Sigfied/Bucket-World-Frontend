@@ -99,7 +99,7 @@ import * as echarts from "echarts";
 import DownloadAndUpload from "./DownloadAndUpload.vue";
 import {BucketStore} from "../store/bucket.ts";
 import {get} from "../api/user.js";
-import {convertFileSize} from '../util/fileUtils.js';
+import {convertFileSize} from '../util/Utils.js';
 
 const bucketStore = BucketStore()
 
