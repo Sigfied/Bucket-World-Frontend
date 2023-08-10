@@ -153,7 +153,7 @@ import {getExtensionFromFileName, joinStrings, joinStrings1} from "../api/utils.
 import {get, getDownloadFile, post,} from "../api/user.js";
 import PerViewPage from "../components/PerViewPage.vue";
 import Bus from "../components/GlobalUploader/utils/bus.js";
-import {AxiosResponse} from "axios/index";
+import {AxiosResponse} from "axios";
 import {convertFileSize, matchIcon} from '../util/Utils.js';
 
 let documentId = ref(0);
